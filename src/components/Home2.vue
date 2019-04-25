@@ -1,19 +1,16 @@
 <template>
     <div class="home">
-
-        <span class="icon_full" @click="getFullCreeen">
+        <span class="icon_full" @click="getFullCreeen" v-if="full_if">
             <img v-if="full_if" src="../assets/img/full.png" alt="">
-            <img v-else src="../assets/img/outfull.png" alt="">
             <span class="full_text">
                 {{fun_text}}
             </span>
         </span>
-
         <div class="main">
-            <p class="main_top">白泽威胁情报系统</p>
+            <p class="main_top">威胁情报</p>
             <div class="main_bom">
                 <div class="main_bom_item">
-                    <p class="main_bom_item_text">情报总数</p>
+                    <p class="main_bom_item_text">情报总数(万)</p>
                     <p class="main_bom_item_num">
                         <span v-for=" item in total_intelligence_num" class="main_bom_item_num_span">{{item}}</span>
                     </p>
@@ -66,68 +63,80 @@
                     <img class="border_line_right" src="../assets/img/border_line.png" alt="">
                     <div class="title_top">
                         <img src="../assets/img/title_icon.png" alt="">
-                        <span>首要预警</span>
+                        <span>预警统计</span>
                     </div>
                     <div class="content_left_mid_mid">
                         <div class="alarm_top">
                             <div class="alarm_item alarm_item_name">
-                                <span v-text="alarmTypeData.fName"></span>
+                                <!-- <span v-text="alarmTypeData.fName"></span> -->
+                                <span>威胁信誉预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_f"></div>
                             <div class="alarm_item alarm_item_num">
-                                <span>{{alarmTypeData.fNum}}</span>
+                                <!-- <span>{{main_warning_data.total[0].high_gegree_count}}</span> -->
+                                <span>2</span>
                             </div>
                         </div>
                         <div class="alarm_mid">
                             <div class="alarm_item alarm_item_name">
-                                <span v-text="alarmTypeData.sName"></span>
+                                <!-- <span v-text="alarmTypeData.sName"></span> -->
+                                <span>漏洞预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_s"></div>
                             <div class="alarm_item alarm_item_num">
-                                <span>{{alarmTypeData.sNum}}</span>
+                                <!-- <span>{{main_warning_data.total[0].high_loophole_count}}</span> -->
+                                <span>14</span>
                             </div>
                         </div>
                         <div class="alarm_bom">
                             <div class="alarm_item alarm_item_name">
-                                <span v-text="alarmTypeData.tName"></span>
+                                <!-- <span v-text="alarmTypeData.tName"></span> -->
+                                <span>暗网预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_t"></div>
                             <div class="alarm_item alarm_item_num">
-                                <span>{{alarmTypeData.tNum}}</span>
+                                <!-- <span>{{main_warning_data.total[0].darknet_count}}</span> -->
+                                <span>3</span>
                             </div>
                         </div>
                     </div>
                     <div class="content_left_mid_bom">
                         <div class="top_bg">
                             <el-row :gutter="0" style="border-bottom:1px solid #6A81B0;">
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
+                                <!-- <el-col :xs="8" :sm="6" :md="6" :lg="6" :xl="6">
                                     <span> </span>
+                                </el-col> -->
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" :offset="8">
+                                    <!-- <span>{{alarmTypeData.fName}}</span> -->
+                                    <span>威胁信誉预警</span>
                                 </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6" :offset="6">
-                                    <span>{{alarmTypeData.fName}}</span>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                                    <!-- <span>{{alarmTypeData.sName}}</span> -->
+                                    <span>漏洞预警</span>
                                 </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span>{{alarmTypeData.sName}}</span>
-                                </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span>{{alarmTypeData.tName}}</span>
-                                </el-col>
+                                <!-- <el-col :xs="8" :sm="8" :md="6" :lg="6" :xl="6"> -->
+                                <!-- <span>{{alarmTypeData.tName}}</span> -->
+                                <!-- <span>暗网预警</span> -->
+                                <!-- </el-col> -->
                             </el-row>
                         </div>
                         <div class="bom_bg">
                             <el-row :gutter="0">
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
                                     <span>{{alarmTypeData.name}} </span>
                                 </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span>{{alarmTypeData.fNum}}</span>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                                    <!-- <span>{{main_warning_data.effect_assets.high_gegree}}</span> -->
+                                    <span>1</span>
                                 </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span>{{alarmTypeData.sNum}}</span>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+                                    <!-- <span>{{main_warning_data.effect_assets.high_loophole}}</span> -->
+                                    <span>14</span>
                                 </el-col>
-                                <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span>{{alarmTypeData.tNum}}</span>
-                                </el-col>
+                                <!-- <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"> -->
+                                <!-- <span>{{main_warning_data.effect_assets.effect_assets_darknet_count}}</span> -->
+                                <!-- <span></span> -->
+                                <!-- </el-col> -->
                             </el-row>
                         </div>
                     </div>
@@ -146,8 +155,13 @@
             </div>
             <!-- 中间 -->
             <div class="content_mid">
-                <div class="content_mid_map" id="china_map">
+                <div class="box_map_bg">
+                    <div class="map_img_bg">
+                    </div>
+                    <div class="content_mid_map" id="china_map">
+                    </div>
                 </div>
+
                 <div class="content_mid_bom">
                     <div class="content_mid_bom_top">
                         <el-row :gutter="0">
@@ -183,15 +197,16 @@
                                     </span>
                                 </div>
                             </div>
+                            <span class="linshi">
+                                101.230.212.114
+                            </span>
                         </div>
                         <div class="mid">
                         </div>
                         <div class="right" id="info_relation">
-
                         </div>
                     </div>
                 </div>
-
             </div>
             <!-- 右边 -->
             <div class="content_right">
@@ -236,7 +251,7 @@
                         <span>威胁排行</span>
                     </div>
                     <div>
-                        <el-table :data="tableData" style="width: 100%;" :show-overflow-tooltip="true">
+                        <el-table :data="tableData" style="width: 100%;" :row-style="rowClass" :show-overflow-tooltip="true">
                             <el-table-column prop="ip" label="资产名称" :show-overflow-tooltip="true">
                             </el-table-column>
                             <el-table-column prop="type" label="类型" :show-overflow-tooltip="true">
@@ -250,9 +265,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </template>
 <style  lang="less">
 .home {
@@ -303,24 +316,14 @@
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     .main_top {
-      font-weight: 700;
       height: 50px;
       margin-top: 28px;
       font-size: 35px;
-      font-family: PingFangSC-Regular, sans-serif;
-      background-image: -webkit-gradient(
-        linear,
-        0 0,
-        0 bottom,
-        from(#54ffff),
-        to(#3c8eff)
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #fff;
+      font-family: PingFang;
     }
     .main_bom {
       position: absolute;
-      //   border: 1px solid red;
       bottom: 0;
       height: 70px;
       width: 100%;
@@ -328,8 +331,6 @@
         float: left;
         width: 25%;
         height: 70px;
-        // padding: 0px 10px;
-        // border: 1px solid red;
         text-align: center;
         padding-bottom: 30px;
         .main_bom_item_text {
@@ -456,10 +457,10 @@
             }
           }
           .alarm_item_name {
-            width: 70px;
+            width: 100px;
           }
           .alarm_item_echarts {
-            width: 320px;
+            width: 290px;
             background: url(../assets/img/alarm_bg.png) no-repeat 0px 0px;
             background-size: 100% 100%;
             -moz-background-size: 100% 100%;
@@ -513,21 +514,35 @@
       height: 944px;
       width: 800px;
       margin: 0 20px;
+      //   border: 1px solid red;
+      position: relative;
+      overflow: hidden;
       float: left;
-      //   .content_mid_map {
-      //     height: 460px;
-      //     width: 100%;
-      //     margin-top: 138px;
-      //     // border: 1px solid red;
-      //     margin-bottom: 45px;
-      //   }
-      .content_mid_map {
-        height: 460px;
+      .box_map_bg {
+        height: 642px;
         width: 100%;
-        margin-top: 138px;
-        // border: 1px solid red;
-        margin-bottom: 45px;
+        // border: 1px solid green;
+        position: relative;
+        overflow: hidden;
+        .map_img_bg {
+          position: absolute;
+          top: 92px;
+          left: -213px;
+          height: 833px;
+          width: 1268px;
+          background: url(../assets/img/map_img_bg2.png) no-repeat 0px 0px;
+          background-size: 100% 100%;
+          -moz-background-size: 100% 100%;
+        }
+        .content_mid_map {
+          height: 460px;
+          width: 100%;
+          margin-top: 138px;
+          //   border: 1px solid red;
+          margin-bottom: 45px;
+        }
       }
+
       .content_mid_bom {
         background: url(../assets/img/mid_bom_bg.png) no-repeat 0px 0px;
         background-size: 100% 100%;
@@ -545,6 +560,7 @@
         .content_mid_bom_bom {
           height: 270px;
           padding: 10px;
+
           .left {
             float: left;
             width: 500px;
@@ -552,11 +568,23 @@
             overflow: hidden;
             text-align: left;
             position: relative;
-            font-family: PingFangSC-Regular;
+            font-family: PingFang;
             font-size: 12px;
             color: #ffffff;
+            .linshi {
+              position: absolute;
+              top: 18px;
+              right: 10px;
+              opacity: 0.8;
+              display: inline-block;
+              padding: 0 5px;
+              border-radius: 4px;
+              color: #c3112b;
+              border: 1px solid rgba(195, 17, 43, 0.24);
+              background: rgba(195, 17, 43, 0.24);
+            }
             .mao_bg {
-              font-family: PingFangSC-Regular;
+              font-family: PingFang;
               font-size: 12px;
               color: #ffffff;
               width: 50%;
@@ -580,11 +608,11 @@
                 }
                 .left_item {
                   display: inline-block;
-                  padding: 0 10px;
+                  padding: 0 5px;
                   background: rgba(255, 255, 255, 0.12);
                   border-radius: 4px;
                   margin-right: 5px;
-                  margin-bottom: 10px;
+                  margin-bottom: 12px;
                 }
               }
               .mao_box_true {
@@ -605,11 +633,11 @@
                 .left_item {
                   //   opacity: 0;
                   display: inline-block;
-                  padding: 0 10px;
+                  padding: 0 5px;
                   //   background: rgba(255, 255, 255, 0.12);
                   border-radius: 4px;
                   margin-right: 5px;
-                  margin-bottom: 10px;
+                  margin-bottom: 12px;
                 }
               }
             }
@@ -620,11 +648,11 @@
                 width: 500px;
                 .left_item {
                   display: inline-block;
-                  padding: 0 10px;
+                  padding: 0 5px;
                   background: rgba(255, 255, 255, 0.12);
                   border-radius: 4px;
                   margin-right: 5px;
-                  margin-bottom: 10px;
+                  margin-bottom: 12px;
                 }
               }
             }
@@ -741,90 +769,67 @@ var echarts = require('echarts');
 import 'echarts/map/js/china.js';
 import '../../static/china.js';
 import '../../static/echarts-auto-tooltip.js';
+// import { formatDate } from 'common/date.js';
 export default {
     name: 'home',
     data() {
         return {
             // 情报总数
             total_intelligence_num: [0],
-            total_net_assets: [0],
-            total_risk_attack: [0],
-            total_threat_warning: [0],
+            total_net_assets: [7, 6, 4, 2],
+            total_risk_attack: [1, 5],
+            total_threat_warning: [1, 9],
             alarmTypeData: {
                 name: '影响资产数',
-                fName: '数据泄露',
-                sName: '勒索软件',
-                tName: '高危漏洞',
+                fName: ' 高危信誉',
+                sName: '高危漏洞',
+                tName: '暗网',
                 fNum: 123,
                 sNum: 2332,
                 tNum: 12213,
             },
             newsData: [
                 {
-                    name: '所有英特尔处理器面临新的Spoiler攻击',
+                    name: '俄罗斯黑客利用TeamViewer攻击各国驻欧洲大使馆',
                     time: '7小时前'
                 },
                 {
-                    name: '微软安全报告显示去年网络钓鱼攻击有所增加',
+                    name: 'NCSC发布最常被黑客入侵的密码列表',
                     time: '7小时前'
                 },
                 {
-                    name: 'RSA2019|Axonius 获创新沙盒冠军',
+                    name: '新型勒索软件定制服务INPIVX在暗网兴起',
                     time: '7小时前'
                 },
                 {
-                    name: 'ji32k7 发现是一个令人震惊的糟糕密码',
+                    name: '攻击者利用Windows MSI文件运行恶意脚本',
                     time: '7小时前'
                 },
             ],
-            tableData: [{
-                ip: '192.168.1.2',
-                type: '资产类型',
-                num: '221',
-                src: '二级公司'
-            }, {
-                ip: 'WWW.BAODE.COM',
-                type: '资产类型',
-                address: '北京市',
-                num: '124',
-                src: '二级公司'
-            }, {
-                ip: '47.23.123.31',
-                type: '资产类型',
-                num: '122',
-                src: '二级公司'
-            }, {
-                ip: '78.24.61.195',
-                type: '资产类型',
-                num: '112',
-                src: '二级公司'
-            }
-            ],
+            tableData: [],
             n: 0,
             fun_text: '全屏',
             full_if: true,
-            real_time_threat: [
-                { name: 'IP:123.45.67.89', threat: false },
-                { name: 'MAL:A07DA897FDE02', threat: false },
-                { name: 'IP:192.45.1.199', threat: false },
-                { name: 'URL:www.baddomm.com', threat: false },
-                { name: 'IP:36.15.32.79', threat: true },
-                { name: 'MAL:H7HK86HHJF', threat: false },
-                { name: 'IP:136.23.173.178', threat: false },
-                { name: 'URL:www.swf.com', threat: true },
-                { name: 'MAL:K75HJKG986HJG', threat: false },
-                { name: 'URL:www.baiduyunpan.com', threat: false },
-                { name: 'IP:36.15.32.79', threat: false },
-                { name: 'MAL:F78HGH9OTF973', threat: false },
-                { name: 'URL:www.baddomm.com', threat: false },
-                { name: 'IP:36.15.32.79', threat: true },
-                { name: 'MAL:H7HK86HHJF', threat: false },
-                { name: 'IP:136.23.173.178', threat: false },
-                { name: 'URL:www.swf.com', threat: true },
-                { name: 'MAL:K75HJKG986HJG', threat: false },
-                { name: 'MAL:H7HK86HHJF', threat: false },
-                { name: 'IP:136.23.173.178', threat: false },
-            ]
+            real_time_threat: [],
+            main_warning_data: {
+                effect_assets: {},
+                list: [],
+                total: [
+                    {
+                        ransomwareurl_total: '',
+                        botnet_total: '',
+                        botnet_total: '',
+                    }
+                ],
+            },
+            list_time: [],
+            list_botnet_count: [],
+            list_high_loophole_count: [],
+            list_ransomwareurl_count: [],
+            check_alert_data: -999,
+            threat_rank_data: [],
+            threat_distribution_data: [],
+            map_data: []
         }
     },
     props: {
@@ -841,55 +846,47 @@ export default {
         // 左上
         this.pie_left_echarts();
         this.pie_right_echarts();
-        // 左中
-        this.alarm_type_f_echarts();
-        this.alarm_type_s_echarts();
-        this.alarm_type_t_echarts();
         // 左下
         this.risk_trend_echarts();
         // 中上
-        setInterval(() => {
-            this.china_eachrts();
-        }, 2000)
+        this.china_eachrts();
         this.echarts_map();
-        // 中下
-        this.info_relation_echarts();
-        // 右上
-        // 右中-柱状图
-        this.threat_echarts();
         // 右下
-        this.get_data();
         this.real_time_data();
         this.realtime_alert();
-        this.total_risk_attack_get();
+        // this.total_risk_attack_get();
         this.total_intelligence_num_get();
-
+        // 威胁预警总数
+        // this.threat_warning_count();
+        // 首要预警
+        // this.main_warning();
+        this.alarm_type_f_echarts();
+        this.alarm_type_s_echarts();
+        this.alarm_type_t_echarts();
+        // 检测最新告警
+        this.check_alert();
+        // 威胁排行
+        this.threat_rank();
+        this.info_relation_echarts();
+        // 威胁分布
+        this.threat_distribution();
+        window.onresize = () => {
+            // 全屏下监控是否按键了ESC
+            if (!this.checkFull()) {
+                this.outfull();
+            }
+        }
     },
     methods: {
         numHandle(params) {
-            if (params <= 999) {
+            if (params <= 9999) {
                 params = params.toString(); // 
-            } else if (999 < params && params <= 99999) {
-                params = params / 1000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'K'; // k 千
-            } else if (99999 < params && params <= 9999999) {
-                params = params / 100000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'M'; // m 兆
-            } else if (9999999 < params && params <= 999999999) {
-                params = params / 10000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'G'; // g 吉（咖）
-            } else if (999999999 < params && params <= 99999999999) {
-                params = params / 1000000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'T'; //t 太（拉）
-            } else if (params > 99999999999 && params <= 99999999999999) {
-                params = params / 100000000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'P'; //p 拍（它）
-            } else if (params > 99999999999 && params <= 99999999999999) {
-                params = params / 100000000000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'E'; //e 艾
-            } else if (params > 99999999999999 && params <= 99999999999999999) {
-                params = params / 100000000000000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'Z'; //z 泽
+            } else if (9999 < params && params <= 99999999) {
+                params = params / 10000;
+                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'W'; // k 千
+            } else if (params > 99999999 && params <= 99999999999999999) {
+                params = params / 100000000;
+                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'Y'; //z 泽
             }
             return params;
         },
@@ -902,6 +899,7 @@ export default {
         },
         // 风险资产总数
         total_risk_attack_get() {
+            // this.$axios.get('https://47.104.243.249/demonstration/risk-assets-count')
             this.$axios.get('/demonstration/risk-assets-count')
                 .then(response => {
                     var str = this.numHandle(response.data.data.risk_assets_count);
@@ -914,10 +912,28 @@ export default {
 
         // 情报总数
         total_intelligence_num_get() {
+            // this.$axios.get('https://47.104.243.249/demonstration/intelligence-count ')
             this.$axios.get('/demonstration/intelligence-count ')
                 .then(response => {
-                    var str = this.numHandle(response.data.data.total_intelligence);
+                    // var str = this.numHandle(response.data.data.total_intelligence);
+                    // console.log(parseInt(response.data.data.total_intelligence / 1000));
+                    var str = parseInt(response.data.data.total_intelligence / 10000) + '';
                     this.total_intelligence_num = str.split("");
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+
+        // 威胁预警总数
+        threat_warning_count() {
+            this.$axios.get('/demonstration/threat-warning-count')
+                // this.$axios.get('https://47.104.243.249/demonstration/threat-warning-count')
+                .then(response => {
+                    // console.log(parseInt(response.data.data.total_intelligence / 1000));
+                    // var str = parseInt(response.data.data.total_intelligence / 1000) + '';
+                    var str = this.numHandle(response.data.data.count);
+                    this.total_threat_warning = str.split("");
                 })
                 .catch(error => {
                     console.log(error);
@@ -931,181 +947,202 @@ export default {
         },
         // 左上-威胁分布-饼图
         pie_left_echarts() {
-            this.$axios.get('/demonstration/threat-level-distribution')
-                .then(response => {
-                    var pie_left_echarts_data = [
-                        { name: '高', value: 0 },
-                        { name: '中', value: 0 },
-                        { name: '低', value: 0 }
-                    ];
-                    response.data.data.forEach(item => {
-                        if (item.degree == '高') {
-                            pie_left_echarts_data[0].name = item.degree
-                            pie_left_echarts_data[0].value = item.count
-                        }
-                        if (item.degree == '中') {
-                            pie_left_echarts_data[1].name = item.degree
-                            pie_left_echarts_data[1].value = item.count
-                        }
-                        if (item.degree == '低') {
-                            pie_left_echarts_data[2].name = item.degree
-                            pie_left_echarts_data[2].value = item.count
-                        }
+            // this.$axios.get('/demonstration/threat-level-distribution')
+            // this.$axios.get('/demonstration/threat-level-distribution')
+            //     .then(response => {
+            var pie_left_echarts_data = [
+                { name: '高', value: 14 },
+                { name: '中', value: 3 },
+                { name: '低', value: 2 }
+            ];
+            // response.data.data.forEach(item => {
+            //     if (item.degree == '高') {
+            //         pie_left_echarts_data[0].name = item.degree
+            //         pie_left_echarts_data[0].value = item.count
+            //     }
+            //     if (item.degree == '中') {
+            //         pie_left_echarts_data[1].name = item.degree
+            //         pie_left_echarts_data[1].value = item.count
+            //     }
+            //     if (item.degree == '低') {
+            //         pie_left_echarts_data[2].name = item.degree
+            //         pie_left_echarts_data[2].value = item.count
+            //     }
 
-                    })
-                    var mychart = echarts.init(document.getElementById("pie_left"));
-                    var option = {
-                        title: {
-                            text: '威胁等级分布',
-                            left: 'center',
-                            top: 10,
-                            textStyle: {
-                                fontSize: 14,
-                                color: '#fff'
-                            }
-                        },
-                        tooltip: {
-                            show: true
-                        },
-                        legend: {
-                            orient: 'horizontal',
-                            bottom: 22,
-                            left: 'center',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 12
+            // })
+
+            var mychart = echarts.init(document.getElementById("pie_left"));
+            var option = {
+                title: {
+                    text: '威胁等级分布',
+                    left: 'center',
+                    top: 10,
+                    textStyle: {
+                        fontSize: 14,
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    show: false,
+                    position: function (pos, params, dom, rect, size) {
+                        // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                        var obj = { top: 60 };
+                        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                        return obj;
+                    },
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: 22,
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 12
+                    },
+                    icon: 'circle',
+                    itemWidth: 6,  // 设置宽度
+                    itemHeight: 6, // 设置高度
+                    data: ['高', '中', '低']
+                },
+                color: ['#FF5F5C', '#FEAA00', '#12DCFF'],
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: ['35%', '50%'],
+                        center: ['50%', '50%'],
+                        avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
+                        hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
+                        legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
+                        selectedOffset: 5,
+                        hoverOffset: 2, //高亮扇区的偏移距离。
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
                             },
-                            icon: 'circle',
-                            itemWidth: 6,  // 设置宽度
-                            itemHeight: 6, // 设置高度
-                            data: ['高', '中', '低']
-                        },
-                        color: ['#FF5F5C', '#FEAA00', '#12DCFF'],
-                        series: [
-                            {
-                                name: '',
-                                type: 'pie',
-                                radius: ['35%', '50%'],
-                                center: ['50%', '50%'],
-                                avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
-                                hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
-                                legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
-                                selectedOffset: 5,
-                                hoverOffset: 2, //高亮扇区的偏移距离。
-                                label: {
-                                    normal: {
-                                        show: false,
-                                        position: 'center'
-                                    },
-                                    emphasis: {
-                                        show: true,
-                                        formatter: '{d}%\n\n{b}',
-                                        textStyle: {
-                                            fontSize: '14',
-                                            color: '#fff',
-                                            fontWeight: 'bold'
-                                        }
-                                    }
-                                },
-                                labelLine: {
-                                    normal: {
-                                        show: false
-                                    }
-                                },
-                                data: pie_left_echarts_data
+                            emphasis: {
+                                show: true,
+                                formatter: '{d}%\n\n{b}',
+                                textStyle: {
+                                    fontSize: '14',
+                                    color: '#fff',
+                                    fontWeight: 'bold'
+                                }
                             }
-                        ]
-                    };
-                    mychart.setOption(option, true);
-                    tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: pie_left_echarts_data
+                    }
+                ]
+            };
+            mychart.setOption(option, true);
+            tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // })
         },
         pie_right_echarts() {
-            this.$axios.get('/demonstration/threat-category')
-                .then(response => {
-                    console.log(response.data.data);
-                    var legend_data = [];
-                    var series_data = [];
-                    response.data.data.forEach(item => {
-                        var obj = {};
-                        legend_data.push(item.category);
-                        obj.name = item.category;
-                        obj.value = item.count;
-                        series_data.push(obj);
-                    })
-                    var mychart = echarts.init(document.getElementById("pie_right"));
-                    var option = {
-                        title: {
-                            text: '威胁类型分布',
-                            left: 'center',
-                            top: 10,
-                            textStyle: {
-                                fontSize: 14,
-                                color: '#fff'
-                            }
-                        },
-                        tooltip: {
-                            show: true
-                        },
-                        legend: {
-                            orient: 'horizontal',
-                            bottom: 0,
-                            left: 'center',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 12
+            // this.$axios.get('/demonstration/threat-category')
+            //     // this.$axios.get('https://47.104.243.249/demonstration/threat-category')
+            //     .then(response => {
+            var legend_data = ['恶意地址', '高危漏洞', '暗网'];
+            var series_data = [
+                { name: '恶意地址', value: '2' },
+                { name: '高危漏洞', value: '14' },
+                { name: '暗网', value: '3' },
+
+            ];
+            // response.data.data.forEach((item, index) => {
+            //     if (index < 6) {
+            //         var obj = {};
+            //         legend_data.push(item.category);
+            //         obj.name = item.category;
+            //         obj.value = item.count;
+            //         series_data.push(obj);
+            //     }
+            // })
+            //  2， 高危漏洞 14 暗网 3
+            var mychart = echarts.init(document.getElementById("pie_right"));
+            var option = {
+                title: {
+                    text: '威胁类型分布',
+                    left: 'center',
+                    top: 10,
+                    textStyle: {
+                        fontSize: 14,
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    show: false,
+                    position: function (pos, params, dom, rect, size) {
+                        // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                        var obj = { top: 60 };
+                        obj[['right', 'left'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                        return obj;
+                    },
+                },
+                legend: {
+                    orient: 'horizontal',
+                    bottom: 20,
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 12
+                    },
+                    icon: 'circle',
+                    itemWidth: 6,  // 设置宽度
+                    itemHeight: 6, // 设置高度
+                    data: legend_data
+                },
+                color: ['#0E79FF ', '#9C00E5', '#8DF97F', '#FF35C1'],
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: ['35%', '50%'],
+                        center: ['50%', '50%'],
+                        avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
+                        hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
+                        legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
+                        selectedOffset: 5,
+                        hoverOffset: 2, //高亮扇区的偏移距离。
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
                             },
-                            icon: 'circle',
-                            itemWidth: 6,  // 设置宽度
-                            itemHeight: 6, // 设置高度
-                            data: legend_data
-                        },
-                        color: ['#0E79FF ', '#9C00E5', '#8DF97F', '#FF35C1'],
-                        series: [
-                            {
-                                name: '',
-                                type: 'pie',
-                                radius: ['35%', '50%'],
-                                center: ['50%', '50%'],
-                                avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
-                                hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
-                                legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
-                                selectedOffset: 5,
-                                hoverOffset: 2, //高亮扇区的偏移距离。
-                                label: {
-                                    normal: {
-                                        show: false,
-                                        position: 'center'
-                                    },
-                                    emphasis: {
-                                        show: true,
-                                        formatter: '{d}%\n\n{b}',
-                                        textStyle: {
-                                            fontSize: '14',
-                                            color: '#fff',
-                                            fontWeight: 'bold'
-                                        }
-                                    }
-                                },
-                                labelLine: {
-                                    normal: {
-                                        show: false
-                                    }
-                                },
-                                data: series_data
+                            emphasis: {
+                                show: true,
+                                formatter: '{d}%\n\n{b}',
+                                textStyle: {
+                                    fontSize: '14',
+                                    color: '#fff',
+                                    fontWeight: 'bold'
+                                }
                             }
-                        ]
-                    };
-                    mychart.setOption(option, true);
-                    tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: series_data
+                    }
+                ]
+            };
+            mychart.setOption(option, true);
+            tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // })
 
         },
         // 左中
@@ -1117,7 +1154,8 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02.18', '02.19', '02.20', '02.21', '02.22', '02.23', '02.24', '02.25', '02.26', '02.27', '02.28', '02.29', '02.30', '02.31'],
+                    // data: this.list_time,
+                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1167,7 +1205,8 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    data: ['200', '400', '888', '781', '926', '288', '300', '200', '400', '888', '781', '926', '288', '300'],
+                    // data: this.list_ransomwareurl_count,
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1194,6 +1233,7 @@ export default {
             mychart.setOption(option, true);
         },
         alarm_type_s_echarts() {
+
             var mychart = echarts.init(document.getElementById("alarm_type_s"));
             var option = {
                 grid: {
@@ -1201,7 +1241,8 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02.18', '02.19', '02.20', '02.21', '02.22', '02.23', '02.24', '02.25', '02.26', '02.27', '02.28', '02.29', '02.30', '02.31'],
+                    // data: this.list_time,
+                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1251,7 +1292,8 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    data: ['926', '288', '200', '400', '888', '781', '300', '200', '288', '300', '400', '781', '926', '888'],
+                    // data: this.list_botnet_count,
+                    data: [0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0],
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1285,7 +1327,8 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['02.18', '02.19', '02.20', '02.21', '02.22', '02.23', '02.24', '02.25', '02.26', '02.27', '02.28', '02.29', '02.30', '02.31'],
+                    // data: this.list_time,
+                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1335,7 +1378,8 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    data: ['200', '926', '300', '288', '300', '400', '200', '400', '888', '888', '781', '926', '288', '300', '781'],
+                    // data: this.list_high_loophole_count,
+                    data: [0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1365,10 +1409,10 @@ export default {
         // 折线图
         risk_trend_echarts() {
             this.$axios.get('/demonstration/threat-situation')
+                // this.$axios.get('https://47.104.243.249/demonstration/threat-situation')
                 .then(response => {
-                    console.log(response.data.data);
-                    var xAxis_data = []
-                    var series_data = []
+                    var xAxis_data = [];
+                    var series_data = [];
                     response.data.data.forEach(item => {
                         xAxis_data.push(item.statistics_time);
                         series_data.push(item.count);
@@ -1390,6 +1434,13 @@ export default {
                             },
                             extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
                         },
+                        grid: {
+                            left: '10',
+                            right: '35',
+                            bottom: '10',
+                            top: '10',
+                            containLabel: true
+                        },
                         xAxis: {
                             type: 'category',
                             data: xAxis_data,
@@ -1409,7 +1460,7 @@ export default {
                             },
                             axisLine: {
                                 lineStyle: {
-                                    color: 'rgba(84,255,255,.36)'
+                                    color: '#224889'
                                 }
                             },
                             axisLabel: {
@@ -1422,6 +1473,8 @@ export default {
                         },
                         yAxis: {
                             type: 'value',
+                            // interval: 5,
+                            minInterval: 5,
                             splitLine: {
                                 show: false
                             },
@@ -1430,7 +1483,7 @@ export default {
                             },
                             axisLine: {
                                 lineStyle: {
-                                    color: 'rgba(84,255,255,.36)'
+                                    color: '#224889'
                                 }
                             },
                             axisLabel: {
@@ -1545,209 +1598,228 @@ export default {
                 })
         },
         // 中国地图
-        china_eachrts() {
-            this.$axios.get('/demonstration/map-alert')
-                .then(response => {
-                    console.log(response.data.data);
-                    if (response.data.data.length == 0) {
-                        var toolTipData = [
-                        ];
-                    } else {
-                        var toolTipData = [
-                            { name: "上海", type: 'IP', ip: response.data.data.device_ip, category: response.data.data.category, time: '2019/03/01' },
-                        ]
-                    }
-                    var myChart = echarts.init(document.getElementById("china_map"));
-                    var nameColor = " rgb(55, 75, 113)";
-                    var name_fontFamily = '等线';
-                    var subname_fontSize = 15;
-                    var name_fontSize = 18;
-                    var mapName = 'china';
-                    var data = [
-                        { name: "上海", value: 177 },
-                    ];
-                    var geoCoordMap = {};
-                    /*获取地图数据*/
-                    myChart.showLoading();
-                    var mapFeatures = echarts.getMap(mapName).geoJson.features;
-                    myChart.hideLoading();
-                    mapFeatures.forEach(function (v) {
-                        // 地区名称
-                        var name = v.properties.name;
-                        // 地区经纬度
-                        geoCoordMap[name] = v.properties.cp;
+        china_eachrts(item) {
+            // if (item) {
+            //     function formatDate(value) {
+            //         let date = new Date(value);
+            //         let y = date.getFullYear();
+            //         let MM = date.getMonth() + 1;
+            //         MM = MM < 10 ? ('0' + MM) : MM;
+            //         let d = date.getDate();
+            //         d = d < 10 ? ('0' + d) : d;
+            //         let h = date.getHours();
+            //         h = h < 10 ? ('0' + h) : h;
+            //         let m = date.getMinutes();
+            //         m = m < 10 ? ('0' + m) : m;
+            //         let s = date.getSeconds();
+            //         s = s < 10 ? ('0' + s) : s;
+            //         return y + '/' + MM + '/' + d + ' ' + h + ':' + m + ':' + s;
+            //     }
+            //     var toolTipData = [
+            //         { name: "上海", type: item.type, ip: item.client_ip, category: item.category, time: formatDate(item.first_seen * 1000), position: item.position },
+            //     ]
+            // } else {
+            // var toolTipData = [];
+            // 101.230.212.114 ，恶意地址，首次出现时间为：2019年4月20日 ，归属为:赛可电子
+            var toolTipData = [
+                {
+                    name: "上海",
+                    type: 'IP',
+                    ip: '101.230.212.114',
+                    category: '恶意地址',
+                    time: '2019年4月20日',
+                    position: '赛可电子'
+                }
+            ];
+            console.log(1111);
+            // }
+            var myChart = echarts.init(document.getElementById("china_map"));
+            var mapName = 'china';
+            var data = [
+                { name: "上海", value: 177 },
+            ];
+            var geoCoordMap = {};
+            /*获取地图数据*/
+            myChart.showLoading();
+            var mapFeatures = echarts.getMap(mapName).geoJson.features;
+            myChart.hideLoading();
+            mapFeatures.forEach(function (v) {
+                // 地区名称
+                var name = v.properties.name;
+                // 地区经纬度
+                geoCoordMap[name] = v.properties.cp;
 
-                    });
-                    var max = 480,
-                        min = 9; // todo 
-                    var maxSize4Pin = 100,
-                        minSize4Pin = 20;
-                    var convertData = function (data) {
-                        var res = [];
-                        for (var i = 0; i < data.length; i++) {
-                            var geoCoord = geoCoordMap[data[i].name];
-                            if (geoCoord) {
-                                res.push({
-                                    name: data[i].name,
-                                    value: geoCoord.concat(data[i].value),
-                                });
+            });
+            var convertData = function (data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var geoCoord = geoCoordMap[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value),
+                        });
+                    }
+                }
+                return res;
+            };
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    position: function (pos, params, dom, rect, size) {
+                        // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                        // var obj = { top: 60 };
+                        // obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                        return [450, 170];
+                        // return obj;
+                    },
+                    formatter: function (params) {
+                        var toolTiphtml = ''
+                        for (var i = 0; i < toolTipData.length; i++) {
+                            if (params.name == toolTipData[i].name) {
+                                toolTiphtml = '<p style="text-align: left;"> 失陷资产:' + toolTipData[i].ip + '</p> <p style="text-align:left;"> 威胁类型 :' +
+                                    toolTipData[i].category + '</p> <p style="text-align: left;">首次发现时间:' + toolTipData[i].time + '</p><p style="text-align: left;">资产分组:' + toolTipData[i].position
+                            };
+                        }
+                        return toolTiphtml;
+                    },
+                    fontFamily: 'PingFangSC-Regular',
+                    fontSize: 12,
+                    backgroundColor: 'rgba(12,54,188,.62)', // 背景
+                    padding: [8, 10], //内边距
+                    // extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.87);', //添加阴影
+                    showContent: true,  //是否显示提示框浮层，默认显示
+                    alwaysShowContent: true,  // 是否永远显示提示框内容，默认情况下在移出可触发提示框区域后 一定时间 后隐藏，设置为 true 可以保证一直显示提示框内容。
+                },
+                geo: {
+                    show: true,
+                    map: mapName,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    roam: false,
+                    aspectScale: 0.76, //长宽比
+                    zoom: 1.2,
+                    itemStyle: {
+                        normal: {
+                            // areaColor: "rgba(65,149,210,.6)", //区域颜色　　　　　　　　　
+                            // borderColor: '#3B5077',
+                            borderWidth: .5, //区域边框宽度
+                            borderColor: '#0A68E9', //区域边框颜色
+                            areaColor: "#081F3D", //区域颜色
+                        },
+                        emphasis: {
+                            areaColor: '#2B91B7',
+                        }
+                    }
+                },
+                series: [{
+                    name: '散点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: convertData(data),
+                    symbolSize: '2',
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'left',
+                            show: true
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#05C3F9'
+                        }
+                    }
+                },
+                {
+                    type: 'map',
+                    map: mapName,
+                    geoIndex: 0,
+                    layoutSize: 100,
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: false,
+                            textStyle: {
+                                color: '#fff'
                             }
                         }
-                        return res;
-                    };
-                    var option = {
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: function (params) {
-                                // console.log(params.name);
-                                var toolTiphtml = ''
-                                for (var i = 0; i < toolTipData.length; i++) {
-                                    // console.log(toolTipData[i].name);
-                                    if (params.name == toolTipData[i].name) {
-                                        toolTiphtml = '<p style="text-align: left;"> ' + toolTipData[i].type + ':' + toolTipData[i].ip + '</p> <p style="text-align:left;"> 威胁:' +
-                                            toolTipData[i].category + '</p> <p style="text-align: left;">首次发现时间:' + toolTipData[i].time + '</p>'
-                                    };
-                                }
-                                return toolTiphtml;
-                            },
-                            fontFamily: 'PingFangSC-Regular',
-                            fontSize: 12,
-                            backgroundColor: 'rgba(12,54,188,.62)', // 背景
-                            padding: [8, 10], //内边距
-                            // extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.87);', //添加阴影
-                            showContent: true,  //是否显示提示框浮层，默认显示
-                            alwaysShowContent: true,  // 是否永远显示提示框内容，默认情况下在移出可触发提示框区域后 一定时间 后隐藏，设置为 true 可以保证一直显示提示框内容。
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#031525',
+                            borderColor: '#3B5077',
                         },
-                        geo: {
-                            show: true,
-                            map: mapName,
-                            label: {
-                                normal: {
-                                    show: false
-                                },
-                                emphasis: {
-                                    show: false,
-                                }
-                            },
-                            roam: false,
-                            itemStyle: {
-                                normal: {
-                                    // areaColor: "rgba(65,149,210,.6)", //区域颜色　　　　　　　　　
-                                    // borderColor: '#3B5077',
-                                    borderWidth: .5, //区域边框宽度
-                                    borderColor: '#0A68E9', //区域边框颜色
-                                    areaColor: "#081F3D", //区域颜色
-                                },
-                                emphasis: {
-                                    areaColor: '#2B91B7',
-                                }
-                            }
-                        },
-                        series: [{
-                            name: '散点',
-                            type: 'scatter',
-                            coordinateSystem: 'geo',
-                            data: convertData(data),
-                            symbolSize: '2',
-                            label: {
-                                normal: {
-                                    formatter: '{b}',
-                                    position: 'left',
-                                    show: true
-                                },
-                                emphasis: {
-                                    show: true
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: '#05C3F9'
-                                }
-                            }
-                        },
-                        {
-                            type: 'map',
-                            map: mapName,
-                            geoIndex: 0,
-                            aspectScale: 0.75, //长宽比
-                            showLegendSymbol: false, // 存在legend时显示
-                            label: {
-                                normal: {
-                                    show: true
-                                },
-                                emphasis: {
-                                    show: false,
-                                    textStyle: {
-                                        color: '#fff'
-                                    }
-                                }
-                            },
-                            roam: true,
-                            itemStyle: {
-                                normal: {
-                                    areaColor: '#031525',
-                                    borderColor: '#3B5077',
-                                },
-                                emphasis: {
-                                    areaColor: '#2B91B7'
-                                }
-                            },
-                            animation: false,
-                            data: data
-                        }, {
-                            name: 'Top 5',
-                            type: 'effectScatter',
-                            coordinateSystem: 'geo',
-                            data: toolTipData[1],
-                            symbolSize: '5',
-                            showEffectOn: 'render',
-                            rippleEffect: {
-                                brushType: 'stroke'
-                            },
-                            hoverAnimation: true,
-                            label: {
-                                normal: {
-                                    formatter: '{b}',
-                                    position: 'right',
-                                    show: true
-                                }
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: 'yellow',
-                                    shadowBlur: 10,
-                                    shadowColor: 'yellow'
-                                }
-                            },
-                            zlevel: 1
-                        },
-                        ]
-                    };
-
-                    myChart.setOption(option);
-                    var dataindex = 0;
-                    var setindexfun = function () {
-                        // console.log(dataindex);
-                        myChart.dispatchAction({
-                            type: 'showTip',
-                            // 系列的 index，在 tooltip 的 trigger 为 axis 的时候可选。
-                            seriesIndex: 0,
-                            dataIndex: dataindex,
-                        })
-                        dataindex++;
-                        if (dataindex > toolTipData.length - 1) {
-                            dataindex = 0;
+                        emphasis: {
+                            areaColor: '#2B91B7'
                         }
-                        // myChart.setOption(option, true);
-                        // setTimeout(setindexfun, 1000);
-                    }
-                    setindexfun();
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+                    },
+                    animation: false,
+                    data: data
+                }, {
+                    name: 'Top 5',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    data: toolTipData[1],
+                    symbolSize: '5',
+                    showEffectOn: 'render',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'yellow',
+                            shadowBlur: 10,
+                            shadowColor: 'yellow'
+                        }
+                    },
+                    zlevel: 1
+                },
+                ]
+            };
 
-            // tools.loopShowTooltip(myChart, option, { loopSeries: true }); // 使用本插件
+            myChart.setOption(option);
+            var dataindex = 0;
+            setInterval(function () {
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0,  // 显示第几个series
+                    dataIndex: 0 // 显示第几个数据
+                });
+            }, 1000)
+            // var setindexfun = function () {
+            //     myChart.dispatchAction({
+            //         type: 'showTip',
+            //         // 系列的 index，在 tooltip 的 trigger 为 axis 的时候可选。
+            //         seriesIndex: 0,
+            //         dataIndex: dataindex,
+            //     })
+            //     dataindex++;
+            //     if (dataindex > toolTipData.length - 1) {
+            //         dataindex = 0;
+            //     }
+            // }
+            // setindexfun();
         },
         // 中下
         info_relation_echarts() {
@@ -1772,6 +1844,7 @@ export default {
                             normal: {
                                 show: true,//显示
                                 color: '#fff',
+                                fontSize: 10,
                                 position: 'right',//相对于节点标签的位置，默认在节点中间
                             }
                         },
@@ -1790,8 +1863,8 @@ export default {
                         },
                         data: [
                             {
-                                name: 'IP:123.45.67.89',
-                                symbolSize: 30,
+                                name: 'IP:101.230.212.114',
+                                symbolSize: 20,
                                 draggable: true,
                                 category: 1,
                                 itemStyle: {
@@ -1804,44 +1877,32 @@ export default {
                                 },
                             },
                             {
-                                name: 'URL:WWW.BADDOM.COM',
-                                symbolSize: 30,
-                                draggable: true, //节点可拖拽
+                                name: 'joa.chexiang.com',
+                                symbolSize: 10,
+                            },
+                            {
+                                name: 'grape.chexiang.com',
+                                symbolSize: 10,
+                            },
+
+
+                            {
+                                name: 'bao.chexiang.com',
+                                symbolSize: 10,
                                 category: 1,
-                                itemStyle: {
-                                    normal: {
-                                        borderColor: '#FF7327',
-                                        borderWidth: 2,
-                                        shadowBlur: 10,
-                                        color: '#FF7327',
-                                    }
-                                },
                             },
 
                             {
-                                name: 'MAL:A0KYFG',
-                                symbolSize: 20,
-                            },
-                            {
-                                name: 'IP:48.23.123.178',
-                                symbolSize: 20,
-                                category: 1,
-                            },
-                            {
-                                name: 'IP:192.168.12.183',
-                                symbolSize: 20,
-                                category: 1,
-                            },
-                            {
-                                name: 'EML:QQsss@qq.COM',
-                                symbolSize: 20,
-                                category: 1,
-                            },
-                            {
-                                name: 'IP:192.168.12.163',
-                                symbolSize: 20,
+                                name: '保养管家.apk',
+                                symbolSize: 10,
                                 category: 0,
                             },
+                            {
+                                name: 'abb298aa17628af2414804509fea4e4ff77ce52cc7d06835afbdcf2d4a770387',
+                                symbolSize: 10,
+                                category: 0,
+                            },
+
                         ],
                         itemStyle: {
                             normal: {
@@ -1850,44 +1911,33 @@ export default {
                                 shadowBlur: 10,
                                 color: '#DBA500',
                             }
-
                         },
                         links: [
                             {
-                                source: 'IP:123.45.67.89',
-                                target: 'IP:192.168.12.183',
+                                source: 'IP:101.230.212.114',
+                                target: 'joa.chexiang.com',
                                 value: '',
                             },
 
                             {
-                                source: 'IP:123.45.67.89',
-                                target: 'EML:QQsss@qq.COM',
-                                value: '',
-                            },
-                            // URL:WWW.BADDOM.COM
-                            {
-                                source: 'URL:WWW.BADDOM.COM',
-                                target: 'IP:48.23.123.178',
+                                source: 'IP:101.230.212.114',
+                                target: 'grape.chexiang.com',
                                 value: '',
                             },
                             {
-                                source: 'URL:WWW.BADDOM.COM',
-                                target: 'MAL:A0KYFG',
+                                source: 'IP:101.230.212.114',
+                                target: 'bao.chexiang.com',
                                 value: '',
                             },
                             {
-                                source: 'IP:123.45.67.89',
-                                target: 'IP:192.168.12.163',
+                                source: 'grape.chexiang.com',
+                                target: '保养管家.apk',
                                 value: '',
                             },
                             {
-                                source: 'IP:123.45.67.89',
-                                target: 'EML:RTUSK@126.COM',
+                                source: 'grape.chexiang.com',
+                                target: 'abb298aa17628af2414804509fea4e4ff77ce52cc7d06835afbdcf2d4a770387',
                                 value: '',
-                            },
-                            {
-                                source: 'IP:123.45.67.89',
-                                target: 'IP:192.168.12.163'
                             },
 
                         ],
@@ -1911,13 +1961,33 @@ export default {
         },
         // 右上
         // 右中
+        // 威胁分布
         threat_echarts() {
+            var timelist = [], high_list = [], medium_list = [], low_list = [], ba_data = [];
+            this.threat_distribution_data.forEach(item => {
+                timelist.push(item.company + '  ' + item.sort);
+                high_list.push(item.high);
+                medium_list.push(item.medium);
+                low_list.push(item.low);
+            });
+            // var ba_data_item = high_list[0] + medium_list[0] + low_list[0]
+            this.threat_distribution_data.forEach(item => {
+                ba_data.push(this.threat_distribution_data[0].sort);
+            });
             var mychart = echarts.init(document.getElementById("threat"));
             var option = {
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: function (item, index) {
+                        // if (item.seriesName ) {
+                        var html = item[0].seriesName + ':' + item[0].data + '<br/>' +
+                            item[1].seriesName + ':' + item[1].data + '<br/>' +
+                            item[2].seriesName + ':' + item[2].data
+                        return html
+                        // }
                     }
                 },
                 grid: {
@@ -1946,13 +2016,12 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['一分公司', '二分公司', '三分公司', '四分公司', '五分公司'],
+                    data: timelist.reverse(),
                     axisLine: {
                         show: false,
                         lineStyle: {
                             color: '#fff'
                         },
-
                     },
                     axisTick: {
                         show: false
@@ -1967,56 +2036,70 @@ export default {
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
+                        // label: {
+                        //     normal: {
+                        //         show: true,
+                        //         position: 'insideRight'
+                        //     }
+                        // },
                         itemStyle: {
                             normal: {
-                                barBorderRadius: [4, 0, 0, 4], //柱形图圆角，初始化效果
+                                // barBorderRadius: [4, 0, 0, 4], //柱形图圆角，初始化效果
                                 color: '#FF5F5C',
                             }
                         },
-                        data: [301, 334, 390, 330, 320]
+                        data: high_list.reverse()
                     },
                     {
                         name: '中',
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
+                        // label: {
+                        //     normal: {
+                        //         show: true,
+                        //         position: 'insideRight'
+                        //     }
+                        // },
                         itemStyle: {
                             normal: {
+                                // barBorderRadius: [4, 4, 4, 4], //柱形图圆角，初始化效果
                                 color: '#FEAA00',
                             }
                         },
-                        data: [101, 134, 90, 230, 210]
+                        data: medium_list.reverse()
                     },
                     {
                         name: '低',
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
+                        // label: {
+                        //     normal: {
+                        //         show: true,
+                        //         position: 'insideRight'
+                        //     }
+                        // },
                         itemStyle: {
                             normal: {
-                                barBorderRadius: [0, 4, 4, 0], //柱形图圆角，初始化效果
+                                // barBorderRadius: [0, 4, 4, 0], //柱形图圆角，初始化效果
                                 color: '#12DCFF',
                             }
                         },
-                        data: [191, 234, 290, 330, 310]
+                        data: low_list.reverse()
+                    },
+                    {
+                        type: 'bar',
+                        stack: 'ss',
+                        barGap: '-100%',
+                        barWidth: 10,
+                        itemStyle: {
+                            normal: {
+                                // barBorderRadius: [4, 4, 4, 4], //柱形图圆角，初始化效果
+                                color: 'rgba(255,255,255,.16)',
+                            }
+                        },
+                        data: ba_data
                     },
                 ]
             };
@@ -2024,11 +2107,17 @@ export default {
         },
         // 右下
         getFullCreeen() {
-            this.n++;
-            console.log(this.n);
-            this.n % 2 == 0 ? this.outFullCreeen(document) : this.inFullCreeen(document.documentElement);
-            this.n % 2 == 0 ? this.fun_text = '全屏' : this.fun_text = '退出';
-            this.n % 2 == 0 ? this.full_if = true : this.full_if = false;
+            this.full_if = false;
+            this.inFullCreeen(document.documentElement)
+        },
+        outfull() {
+            this.fun_text = '全屏';
+            this.full_if = true;
+        },
+        checkFull() {
+            var isFull = document.webkitIsFullScreen;
+            if (isFull === undefined) { isFull = false; }
+            return isFull;
         },
         inFullCreeen(element) {
             let el = element;
@@ -2056,27 +2145,143 @@ export default {
                 }
             }
         },
-        // 数据请求
-        get_data() {
-            this.$axios.get('/email/get')
-                .then(response => {
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-
-        },
         realtime_alert() {
+            // this.$axios.get('https://47.104.243.249/demonstration/realtime-alert')
             this.$axios.get('/demonstration/realtime-alert')
                 .then(response => {
                     // console.log(response.data.data);
-
                 })
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        },
+        // 首要预警
+        main_warning() {
+            console.log(44444);
+            // this.$axios.get('https://47.104.243.249/demonstration/main-warning')
+            this.$axios.get('/demonstration/main-warning')
+                .then(response => {
+                    console.log(12312312);
+                    console.log(response);
+                    this.list_time = [];
+                    this.list_botnet_count = [];
+                    this.list_high_loophole_count = [];
+                    this.list_ransomwareurl_count = [];
+                    this.main_warning_data = response.data.data
+                    this.main_warning_data.list.forEach((item) => {
+                        this.list_time.push(item.statistics_time);
+                        if (item.darknet_count == '' || item.darknet_count == null) {
+                            this.list_botnet_count.push('0');
+                        } else {
+                            this.list_botnet_count.push(item.darknet_count);
+                        }
+                        if (item.high_loophole_count == '' || item.high_loophole_count == null) {
+                            this.list_high_loophole_count.push('0');
+                        } else {
+                            this.list_high_loophole_count.push(item.high_loophole_count);
+                        }
+                        if (item.high_gegree_count == '' || item.high_gegree_count == null) {
+                            this.list_ransomwareurl_count.push('0');
+                        } else {
+                            this.list_ransomwareurl_count.push(item.high_gegree_count);
+                        }
+                    })
+                    // this.alarm_type_f_echarts();
+                    // this.alarm_type_s_echarts();
+                    // this.alarm_type_t_echarts();
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        // 检测最新告警
+        check_alert() {
+            // this.$axios.get('https://47.104.243.249/demonstration/check-alert')
+            this.$axios.get('/demonstration/check-alert')
+                .then(response => {
+                    if (response.data.data > this.check_alert_data) {
+                        this.check_alert_data = response.data.data;
+                        // this.$axios.get('https://47.104.243.249/demonstration/realtime-intelligence')
+                        this.$axios.get('/demonstration/realtime-intelligence')
+                            .then(response => {
+                                this.realtime_intelligence_data = response.data.data;
+                                this.realtime_intelligence_data.forEach((item, index) => {
+                                    var obj = {
+                                        name: '',
+                                        threat: false,
+                                    };
+                                    if (typeof item == 'string') {
+                                        obj.name = item;
+                                        obj.threat = false;
+                                    }
+                                    if (typeof item == 'object') {
+                                        obj.name = item.client_ip;
+                                        obj.threat = true;
+                                        item.index = index - 10;
+                                        this.map_data.push(item);
+                                    }
+                                    this.real_time_threat.push(obj);
+                                })
+                                if (this.map_data.length != 0) {
+                                    // console.log(this.map_data);
+                                    this.map_data.forEach(item => {
+                                        // setTimeout(() => {
+                                        //     this.china_eachrts(item);
+                                        // }, item.index * 1000)
+                                    })
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        // 威胁排行
+        threat_rank() {
+            // this.$axios.get('https://47.104.243.249/demonstration/threat-rank')
+            this.$axios.get('/demonstration/threat-rank')
+                .then(response => {
+                    this.tableData = [];
+                    this.threat_rank_data = response.data.data;
+                    this.threat_rank_data.forEach((item, index) => {
+                        var obj = {};
+                        if (index < 4) {
+                            obj.ip = item.client_ip;
+                            obj.src = item.company;
+                            obj.num = item.count;
+                            obj.type = item.device_type;
+                            this.tableData.push(obj);
+                        }
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        // 威胁分布
+        threat_distribution() {
+            // this.$axios.get('https://47.104.243.249/demonstration/threat-distribution')
+            this.$axios.get('/demonstration/threat-distribution')
+                .then(response => {
+                    this.threat_distribution_data = response.data.data;
+                    this.threat_echarts();
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+
+        rowClass: function (row, index) {
+            if (row.rowIndex % 2 == 0) {
+
+            } else {
+                return ' background-color: rgba(34, 72, 137, 0.56)';
+            }
+        },
     }
 }
 </script>

@@ -11,6 +11,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import "./assets/icon/iconfont.css";
 import "common/js/iconfont.js";
 import "common/family/font.css";
+import "common/family/pingfang.css";
 Vue.config.productionTip = false;
 // axios.defaults.baseURL = "/api";
 // axios.defaults.headers.post["Content-Type"] = "application/json";

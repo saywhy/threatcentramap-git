@@ -10,25 +10,33 @@
             <p class="main_top">威胁情报</p>
             <div class="main_bom">
                 <div class="main_bom_item">
-                    <p class="main_bom_item_text">情报总数(万)</p>
+                    <p class="main_bom_item_text">情报总数
+                        <span>{{total_unit.total_intelligence_num_unit}}</span>
+                    </p>
                     <p class="main_bom_item_num">
                         <span v-for=" item in total_intelligence_num" class="main_bom_item_num_span">{{item}}</span>
                     </p>
                 </div>
                 <div class="main_bom_item">
-                    <p class="main_bom_item_text">互联网资产总数</p>
+                    <p class="main_bom_item_text">互联网资产总数
+                        <span>{{total_unit.total_net_assets_unit}}</span>
+                    </p>
                     <p class="main_bom_item_num">
                         <span v-for=" item in total_net_assets" class="main_bom_item_num_span">{{item}}</span>
                     </p>
                 </div>
                 <div class="main_bom_item">
-                    <p class="main_bom_item_text">风险资产总数</p>
+                    <p class="main_bom_item_text">风险资产总数
+                        <span>{{total_unit.total_risk_attack_unit}}</span>
+                    </p>
                     <p class="main_bom_item_num">
                         <span v-for=" item in total_risk_attack" class="main_bom_item_num_span">{{item}}</span>
                     </p>
                 </div>
                 <div class="main_bom_item">
-                    <p class="main_bom_item_text">威胁预警总数</p>
+                    <p class="main_bom_item_text">威胁预警总数
+                        <span>{{total_unit.total_threat_warning_unit}}</span>
+                    </p>
                     <p class="main_bom_item_num">
                         <span v-for=" item in total_threat_warning" class="main_bom_item_num_span">{{item}}</span>
                     </p>
@@ -197,9 +205,6 @@
                                     </span>
                                 </div>
                             </div>
-                            <span class="linshi">
-                                101.230.212.114
-                            </span>
                         </div>
                         <div class="mid">
                         </div>
@@ -571,18 +576,6 @@
             font-family: PingFang;
             font-size: 12px;
             color: #ffffff;
-            .linshi {
-              position: absolute;
-              top: 18px;
-              right: 10px;
-              opacity: 0.8;
-              display: inline-block;
-              padding: 0 5px;
-              border-radius: 4px;
-              color: #c3112b;
-              border: 1px solid rgba(195, 17, 43, 0.24);
-              background: rgba(195, 17, 43, 0.24);
-            }
             .mao_bg {
               font-family: PingFang;
               font-size: 12px;
@@ -779,6 +772,12 @@ export default {
             total_net_assets: [7, 6, 4, 2],
             total_risk_attack: [1, 5],
             total_threat_warning: [1, 9],
+            total_unit: {
+                total_intelligence_num_unit: '',
+                total_net_assets_unit: '',
+                total_risk_attack_unit: '',
+                total_threat_warning_unit: '',
+            },
             alarmTypeData: {
                 name: '影响资产数',
                 fName: ' 高危信誉',
@@ -857,7 +856,7 @@ export default {
         // this.total_risk_attack_get();
         this.total_intelligence_num_get();
         // 威胁预警总数
-        // this.threat_warning_count();
+        this.threat_warning_count();
         // 首要预警
         // this.main_warning();
         this.alarm_type_f_echarts();
@@ -878,47 +877,43 @@ export default {
         }
     },
     methods: {
-        numHandle(params) {
-            if (params <= 9999) {
-                params = params.toString(); // 
-            } else if (9999 < params && params <= 99999999) {
-                params = params / 10000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'W'; // k 千
-            } else if (params > 99999999 && params <= 99999999999999999) {
-                params = params / 100000000;
-                params = params.toString().split(".")[0] + '.' + params.toString().split(".")[1].substr(0, 1) + 'Y'; //z 泽
+            unit_common(num) {
+            var obj = {};
+            if (num < 10000) {
+                obj.num = num + '';
+                obj.unit = '';
             }
-            return params;
-        },
-        converStr(str) {
-            if (/\./.test(str)) {
-                return str.replace(/\d(?=(\d{1})+\.)/g, "$&,").split("").reverse().join("").replace(/\d(?=(\d{1})+\.)/g, "$&,").split("").reverse().join("");
-            } else {
-                return str.replace(/\d(?=(\d{1})+$)/g, "$&,");
+            if (10000 <= num && num < 100000000) {
+                obj.num = parseInt(num / 10000) + '';;
+                obj.unit = '(万)';
             }
+            if (num >= 100000000) {
+                obj.num = parseInt(num / 100000000) + '';;
+                obj.unit = '(亿)';
+            }
+            return obj
         },
-        // 风险资产总数
-        total_risk_attack_get() {
-            // this.$axios.get('https://47.104.243.249/demonstration/risk-assets-count')
-            this.$axios.get('/demonstration/risk-assets-count')
+           // 情报总数
+        total_intelligence_num_get() {
+            this.$axios.get('https://47.104.243.249/demonstration/intelligence-count ')
+                // this.$axios.get('/demonstration/intelligence-count ')
                 .then(response => {
-                    var str = this.numHandle(response.data.data.risk_assets_count);
-                    this.total_risk_attack = str.split("");
+                    var str = this.unit_common(response.data.data.total_intelligence).num;
+                    this.total_unit.total_intelligence_num_unit = this.unit_common(response.data.data.total_intelligence).unit;
+                    this.total_intelligence_num = str.split("");
                 })
                 .catch(error => {
                     console.log(error);
                 })
         },
-
-        // 情报总数
-        total_intelligence_num_get() {
-            // this.$axios.get('https://47.104.243.249/demonstration/intelligence-count ')
-            this.$axios.get('/demonstration/intelligence-count ')
+        // 风险资产总数
+        total_risk_attack_get() {
+            this.$axios.get('https://47.104.243.249/demonstration/risk-assets-count')
+            // this.$axios.get('/demonstration/risk-assets-count')
                 .then(response => {
-                    // var str = this.numHandle(response.data.data.total_intelligence);
-                    // console.log(parseInt(response.data.data.total_intelligence / 1000));
-                    var str = parseInt(response.data.data.total_intelligence / 10000) + '';
-                    this.total_intelligence_num = str.split("");
+                    var str = this.unit_common(response.data.data.risk_assets_count).num;
+                    this.total_unit.total_risk_attack_unit = this.unit_common(response.data.data.risk_assets_count).unit;
+                    this.total_risk_attack = str.split("");
                 })
                 .catch(error => {
                     console.log(error);
@@ -927,222 +922,221 @@ export default {
 
         // 威胁预警总数
         threat_warning_count() {
-            this.$axios.get('/demonstration/threat-warning-count')
-                // this.$axios.get('https://47.104.243.249/demonstration/threat-warning-count')
+            // this.$axios.get('/demonstration/threat-warning-count')
+            this.$axios.get('https://47.104.243.249/demonstration/threat-warning-count')
                 .then(response => {
-                    // console.log(parseInt(response.data.data.total_intelligence / 1000));
-                    // var str = parseInt(response.data.data.total_intelligence / 1000) + '';
-                    var str = this.numHandle(response.data.data.count);
+                    var str = this.unit_common(response.data.data.count).num;
+                    this.total_unit.total_threat_warning_unit = this.unit_common(response.data.data.count).unit;
                     this.total_threat_warning = str.split("");
                 })
                 .catch(error => {
                     console.log(error);
                 })
         },
+// 实时情报动态
         real_time_data() {
-            setInterval(() => {
-                var item = this.real_time_threat.shift();
-                this.real_time_threat.push(item);
-            }, 2000)
+            // setInterval(() => {
+            //     var item = this.real_time_threat.shift();
+            //     this.real_time_threat.push(item);
+            // }, 2000)
         },
         // 左上-威胁分布-饼图
         pie_left_echarts() {
-            // this.$axios.get('/demonstration/threat-level-distribution')
-            // this.$axios.get('/demonstration/threat-level-distribution')
-            //     .then(response => {
-            var pie_left_echarts_data = [
-                { name: '高', value: 14 },
-                { name: '中', value: 3 },
-                { name: '低', value: 2 }
-            ];
-            // response.data.data.forEach(item => {
-            //     if (item.degree == '高') {
-            //         pie_left_echarts_data[0].name = item.degree
-            //         pie_left_echarts_data[0].value = item.count
-            //     }
-            //     if (item.degree == '中') {
-            //         pie_left_echarts_data[1].name = item.degree
-            //         pie_left_echarts_data[1].value = item.count
-            //     }
-            //     if (item.degree == '低') {
-            //         pie_left_echarts_data[2].name = item.degree
-            //         pie_left_echarts_data[2].value = item.count
-            //     }
+            this.$axios.get('https://47.104.243.249/demonstration/threat-level-distribution')
+                // this.$axios.get('/demonstration/threat-level-distribution')
+                .then(response => {
+                    var pie_left_echarts_data = [
+                        { name: '高', value: 14 },
+                        { name: '中', value: 3 },
+                        { name: '低', value: 2 }
+                    ];
+                    response.data.data.forEach(item => {
+                        if (item.degree == '高') {
+                            pie_left_echarts_data[0].name = item.degree
+                            pie_left_echarts_data[0].value = item.count
+                        }
+                        if (item.degree == '中') {
+                            pie_left_echarts_data[1].name = item.degree
+                            pie_left_echarts_data[1].value = item.count
+                        }
+                        if (item.degree == '低') {
+                            pie_left_echarts_data[2].name = item.degree
+                            pie_left_echarts_data[2].value = item.count
+                        }
 
-            // })
+                    })
 
-            var mychart = echarts.init(document.getElementById("pie_left"));
-            var option = {
-                title: {
-                    text: '威胁等级分布',
-                    left: 'center',
-                    top: 10,
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#fff'
-                    }
-                },
-                tooltip: {
-                    show: false,
-                    position: function (pos, params, dom, rect, size) {
-                        // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
-                        var obj = { top: 60 };
-                        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-                        return obj;
-                    },
-                },
-                legend: {
-                    orient: 'horizontal',
-                    bottom: 22,
-                    left: 'center',
-                    textStyle: {
-                        color: '#fff',
-                        fontSize: 12
-                    },
-                    icon: 'circle',
-                    itemWidth: 6,  // 设置宽度
-                    itemHeight: 6, // 设置高度
-                    data: ['高', '中', '低']
-                },
-                color: ['#FF5F5C', '#FEAA00', '#12DCFF'],
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: ['35%', '50%'],
-                        center: ['50%', '50%'],
-                        avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
-                        hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
-                        legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
-                        selectedOffset: 5,
-                        hoverOffset: 2, //高亮扇区的偏移距离。
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
+                    var mychart = echarts.init(document.getElementById("pie_left"));
+                    var option = {
+                        title: {
+                            text: '威胁等级分布',
+                            left: 'center',
+                            top: 10,
+                            textStyle: {
+                                fontSize: 14,
+                                color: '#fff'
+                            }
+                        },
+                        tooltip: {
+                            show: false,
+                            position: function (pos, params, dom, rect, size) {
+                                // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                                var obj = { top: 60 };
+                                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                                return obj;
                             },
-                            emphasis: {
-                                show: true,
-                                formatter: '{d}%\n\n{b}',
-                                textStyle: {
-                                    fontSize: '14',
-                                    color: '#fff',
-                                    fontWeight: 'bold'
-                                }
-                            }
                         },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
+                        legend: {
+                            orient: 'horizontal',
+                            bottom: 22,
+                            left: 'center',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 12
+                            },
+                            icon: 'circle',
+                            itemWidth: 6,  // 设置宽度
+                            itemHeight: 6, // 设置高度
+                            data: ['高', '中', '低']
                         },
-                        data: pie_left_echarts_data
-                    }
-                ]
-            };
-            mychart.setOption(option, true);
-            tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // })
+                        color: ['#FF5F5C', '#FEAA00', '#12DCFF'],
+                        series: [
+                            {
+                                name: '',
+                                type: 'pie',
+                                radius: ['35%', '50%'],
+                                center: ['50%', '50%'],
+                                avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
+                                hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
+                                legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
+                                selectedOffset: 5,
+                                hoverOffset: 2, //高亮扇区的偏移距离。
+                                label: {
+                                    normal: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        show: true,
+                                        formatter: '{d}%\n\n{b}',
+                                        textStyle: {
+                                            fontSize: '14',
+                                            color: '#fff',
+                                            fontWeight: 'bold'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data: pie_left_echarts_data
+                            }
+                        ]
+                    };
+                    mychart.setOption(option, true);
+                    tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         },
         pie_right_echarts() {
             // this.$axios.get('/demonstration/threat-category')
-            //     // this.$axios.get('https://47.104.243.249/demonstration/threat-category')
-            //     .then(response => {
-            var legend_data = ['恶意地址', '高危漏洞', '暗网'];
-            var series_data = [
-                { name: '恶意地址', value: '2' },
-                { name: '高危漏洞', value: '14' },
-                { name: '暗网', value: '3' },
-
-            ];
-            // response.data.data.forEach((item, index) => {
-            //     if (index < 6) {
-            //         var obj = {};
-            //         legend_data.push(item.category);
-            //         obj.name = item.category;
-            //         obj.value = item.count;
-            //         series_data.push(obj);
-            //     }
-            // })
-            //  2， 高危漏洞 14 暗网 3
-            var mychart = echarts.init(document.getElementById("pie_right"));
-            var option = {
-                title: {
-                    text: '威胁类型分布',
-                    left: 'center',
-                    top: 10,
-                    textStyle: {
-                        fontSize: 14,
-                        color: '#fff'
-                    }
-                },
-                tooltip: {
-                    show: false,
-                    position: function (pos, params, dom, rect, size) {
-                        // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
-                        var obj = { top: 60 };
-                        obj[['right', 'left'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-                        return obj;
-                    },
-                },
-                legend: {
-                    orient: 'horizontal',
-                    bottom: 20,
-                    left: 'center',
-                    textStyle: {
-                        color: '#fff',
-                        fontSize: 12
-                    },
-                    icon: 'circle',
-                    itemWidth: 6,  // 设置宽度
-                    itemHeight: 6, // 设置高度
-                    data: legend_data
-                },
-                color: ['#0E79FF ', '#9C00E5', '#8DF97F', '#FF35C1'],
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: ['35%', '50%'],
-                        center: ['50%', '50%'],
-                        avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
-                        hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
-                        legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
-                        selectedOffset: 5,
-                        hoverOffset: 2, //高亮扇区的偏移距离。
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
+            this.$axios.get('https://47.104.243.249/demonstration/threat-category')
+                .then(response => {
+                    var legend_data = ['恶意地址', '高危漏洞', '暗网'];
+                    var series_data = [
+                        { name: '恶意地址', value: '2' },
+                        { name: '高危漏洞', value: '14' },
+                        { name: '暗网', value: '3' },
+                    ];
+                    response.data.data.forEach((item, index) => {
+                        if (index < 6) {
+                            var obj = {};
+                            legend_data.push(item.category);
+                            obj.name = item.category;
+                            obj.value = item.count;
+                            series_data.push(obj);
+                        }
+                    })
+                    //  2， 高危漏洞 14 暗网 3
+                    var mychart = echarts.init(document.getElementById("pie_right"));
+                    var option = {
+                        title: {
+                            text: '威胁类型分布',
+                            left: 'center',
+                            top: 10,
+                            textStyle: {
+                                fontSize: 14,
+                                color: '#fff'
+                            }
+                        },
+                        tooltip: {
+                            show: false,
+                            position: function (pos, params, dom, rect, size) {
+                                // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                                var obj = { top: 60 };
+                                obj[['right', 'left'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                                return obj;
                             },
-                            emphasis: {
-                                show: true,
-                                formatter: '{d}%\n\n{b}',
-                                textStyle: {
-                                    fontSize: '14',
-                                    color: '#fff',
-                                    fontWeight: 'bold'
-                                }
-                            }
                         },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
+                        legend: {
+                            orient: 'horizontal',
+                            bottom: 20,
+                            left: 'center',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 12
+                            },
+                            icon: 'circle',
+                            itemWidth: 6,  // 设置宽度
+                            itemHeight: 6, // 设置高度
+                            data: legend_data
                         },
-                        data: series_data
-                    }
-                ]
-            };
-            mychart.setOption(option, true);
-            tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // })
+                        color: ['#0E79FF ', '#9C00E5', '#8DF97F', '#FF35C1'],
+                        series: [
+                            {
+                                name: '',
+                                type: 'pie',
+                                radius: ['35%', '50%'],
+                                center: ['50%', '50%'],
+                                avoidLabelOverlap: false, //是否启用防止标签重叠策略，默认开启，
+                                hoverAnimation: true,//是否开启 hover 在扇区上的放大动画效果。
+                                legendHoverLink: true,//是否启用图例 hover 时的联动高亮。
+                                selectedOffset: 5,
+                                hoverOffset: 2, //高亮扇区的偏移距离。
+                                label: {
+                                    normal: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        show: true,
+                                        formatter: '{d}%\n\n{b}',
+                                        textStyle: {
+                                            fontSize: '14',
+                                            color: '#fff',
+                                            fontWeight: 'bold'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data: series_data
+                            }
+                        ]
+                    };
+                    mychart.setOption(option, true);
+                    tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+                })
+                .catch(error => {
+                    console.log(error);
+                })
 
         },
         // 左中
@@ -1966,9 +1960,10 @@ export default {
             var timelist = [], high_list = [], medium_list = [], low_list = [], ba_data = [];
             this.threat_distribution_data.forEach(item => {
                 timelist.push(item.company + '  ' + item.sort);
-                high_list.push(item.high);
-                medium_list.push(item.medium);
                 low_list.push(item.low);
+                medium_list.push(item.medium);
+                high_list.push(item.high);
+
             });
             // var ba_data_item = high_list[0] + medium_list[0] + low_list[0]
             this.threat_distribution_data.forEach(item => {
@@ -2032,7 +2027,7 @@ export default {
                 },
                 series: [
                     {
-                        name: '高',
+                        name: '低',
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
@@ -2044,11 +2039,12 @@ export default {
                         // },
                         itemStyle: {
                             normal: {
-                                // barBorderRadius: [4, 0, 0, 4], //柱形图圆角，初始化效果
-                                color: '#FF5F5C',
+                                // barBorderRadius: 50, //柱形图圆角，初始化效果
+                                color: '#12DCFF',
                             }
                         },
-                        data: high_list.reverse()
+                        data: low_list.reverse()
+                        // data: [10, 20, 30, 10, 10, 10]
                     },
                     {
                         name: '中',
@@ -2063,14 +2059,15 @@ export default {
                         // },
                         itemStyle: {
                             normal: {
-                                // barBorderRadius: [4, 4, 4, 4], //柱形图圆角，初始化效果
+                                // barBorderRadius: 50, //柱形图圆角，初始化效果
                                 color: '#FEAA00',
                             }
                         },
                         data: medium_list.reverse()
+                        // data: [30, 10, 30, 20, 30, 40]
                     },
                     {
-                        name: '低',
+                        name: '高',
                         type: 'bar',
                         stack: '总量',
                         barWidth: 10,
@@ -2082,11 +2079,12 @@ export default {
                         // },
                         itemStyle: {
                             normal: {
-                                // barBorderRadius: [0, 4, 4, 0], //柱形图圆角，初始化效果
-                                color: '#12DCFF',
+                                // barBorderRadius: 50, //柱形图圆角，初始化效果
+                                color: '#FF5F5C',
                             }
                         },
-                        data: low_list.reverse()
+                        // data: [30, 10, 30, 20, 30, 40]
+                        data: high_list.reverse()
                     },
                     {
                         type: 'bar',
@@ -2095,7 +2093,7 @@ export default {
                         barWidth: 10,
                         itemStyle: {
                             normal: {
-                                // barBorderRadius: [4, 4, 4, 4], //柱形图圆角，初始化效果
+                                barBorderRadius: 50, //柱形图圆角，初始化效果
                                 color: 'rgba(255,255,255,.16)',
                             }
                         },
@@ -2264,8 +2262,8 @@ export default {
         },
         // 威胁分布
         threat_distribution() {
-            // this.$axios.get('https://47.104.243.249/demonstration/threat-distribution')
-            this.$axios.get('/demonstration/threat-distribution')
+            this.$axios.get('https://47.104.243.249/demonstration/threat-distribution')
+                // this.$axios.get('/demonstration/threat-distribution')
                 .then(response => {
                     this.threat_distribution_data = response.data.data;
                     this.threat_echarts();

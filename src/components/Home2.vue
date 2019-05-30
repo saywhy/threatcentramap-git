@@ -76,56 +76,41 @@
                     <div class="content_left_mid_mid">
                         <div class="alarm_top">
                             <div class="alarm_item alarm_item_name">
-                                <!-- <span v-text="alarmTypeData.fName"></span> -->
                                 <span>威胁信誉预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_f"></div>
                             <div class="alarm_item alarm_item_num">
-                                <!-- <span>{{main_warning_data.total[0].high_gegree_count}}</span> -->
-                                <span>2</span>
+                                <span>{{main_warning_data.total.alert}}</span>
                             </div>
                         </div>
                         <div class="alarm_mid">
                             <div class="alarm_item alarm_item_name">
-                                <!-- <span v-text="alarmTypeData.sName"></span> -->
                                 <span>漏洞预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_s"></div>
                             <div class="alarm_item alarm_item_num">
-                                <!-- <span>{{main_warning_data.total[0].high_loophole_count}}</span> -->
-                                <span>14</span>
+                                <span>{{main_warning_data.total.loophole}}</span>
                             </div>
                         </div>
                         <div class="alarm_bom">
                             <div class="alarm_item alarm_item_name">
-                                <!-- <span v-text="alarmTypeData.tName"></span> -->
                                 <span>暗网预警</span>
                             </div>
                             <div class="alarm_item alarm_item_echarts" id="alarm_type_t"></div>
                             <div class="alarm_item alarm_item_num">
-                                <!-- <span>{{main_warning_data.total[0].darknet_count}}</span> -->
-                                <span>3</span>
+                                <span>{{main_warning_data.total.darknet}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="content_left_mid_bom">
                         <div class="top_bg">
                             <el-row :gutter="0" style="border-bottom:1px solid #6A81B0;">
-                                <!-- <el-col :xs="8" :sm="6" :md="6" :lg="6" :xl="6">
-                                    <span> </span>
-                                </el-col> -->
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" :offset="8">
-                                    <!-- <span>{{alarmTypeData.fName}}</span> -->
                                     <span>威胁信誉预警</span>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                    <!-- <span>{{alarmTypeData.sName}}</span> -->
                                     <span>漏洞预警</span>
                                 </el-col>
-                                <!-- <el-col :xs="8" :sm="8" :md="6" :lg="6" :xl="6"> -->
-                                <!-- <span>{{alarmTypeData.tName}}</span> -->
-                                <!-- <span>暗网预警</span> -->
-                                <!-- </el-col> -->
                             </el-row>
                         </div>
                         <div class="bom_bg">
@@ -134,17 +119,11 @@
                                     <span>{{alarmTypeData.name}} </span>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                    <!-- <span>{{main_warning_data.effect_assets.high_gegree}}</span> -->
-                                    <span>1</span>
+                                    <span>{{main_warning_data.effect_assets.alert}}</span>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                    <!-- <span>{{main_warning_data.effect_assets.high_loophole}}</span> -->
-                                    <span>14</span>
+                                    <span>{{main_warning_data.effect_assets.high_loophole}}</span>
                                 </el-col>
-                                <!-- <el-col :xs="6" :sm="6" :md="6" :lg="6" :xl="6"> -->
-                                <!-- <span>{{main_warning_data.effect_assets.effect_assets_darknet_count}}</span> -->
-                                <!-- <span></span> -->
-                                <!-- </el-col> -->
                             </el-row>
                         </div>
                     </div>
@@ -173,11 +152,8 @@
                 <div class="content_mid_bom">
                     <div class="content_mid_bom_top">
                         <el-row :gutter="0">
-                            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <p>实时情报更新</p>
-                            </el-col>
-                            <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-                                <p>实时威胁预警</p>
+                            <el-col :xs="16" :sm="16" :md="16" :lg="16" :xl="16">
+                                <p>情报更新和预警</p>
                             </el-col>
                             <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
                                 <p>预警扩展和关联</p>
@@ -186,24 +162,10 @@
                     </div>
                     <div class="content_mid_bom_bom">
                         <div class="left">
-                            <div class="mao_bg">
-                                <div class="mao_box">
-                                    <span class="left_item" v-for="item in real_time_threat" :class="item.threat?'mao_box_hidden':''">
-                                        {{item.name}}
-                                    </span>
-                                </div>
-                                <div class="mao_box_true">
-                                    <span class="left_item" v-for="item in real_time_threat" :class="item.threat?'mao_box_red':'mao_box_red_hidden'">
-                                        {{item.name}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="block_left">
-                                <div class="block_left_content">
-                                    <span class="left_item" v-for="item in real_time_threat">
-                                        {{item.name}}
-                                    </span>
-                                </div>
+                            <div class="block_left_content">
+                                <span class="left_item" v-for="item in real_time_threat" :class="item.threat?'mao_box_red':''">
+                                    {{item.name}}
+                                </span>
                             </div>
                         </div>
                         <div class="mid">
@@ -223,17 +185,19 @@
                         <img src="../assets/img/title_icon.png" alt="">
                         <span>全球威胁动态</span>
                     </div>
-                    <div class="bom">
-                        <div class="bom_item" v-for="item in newsData">
-                            <img class="bar_left" src="../assets/img/bar_left.png" alt="">
-                            <p class="item_top">
-                                <img src="../assets/img/li_title.png" alt="">
-                                <span>{{item.name}}</span>
-                            </p>
-                            <p class="item_bom">
-                                <span>{{item.time}}</span>
-                            </p>
-                        </div>
+                    <div class="bom" style="height: 218px;overflow: hidden;">
+                        <transition-group name="list" tag="p" mode="out-in">
+                            <div class="bom_item list-item" v-for="item in newsData" v-bind:key="item.name">
+                                <img class="bar_left" src="../assets/img/bar_left.png" alt="">
+                                <p class="item_top">
+                                    <img src="../assets/img/li_title.png" alt="">
+                                    <span>{{item.name}}</span>
+                                </p>
+                                <p class="item_bom">
+                                    <span>{{item.time}}</span>
+                                </p>
+                            </div>
+                        </transition-group>
                     </div>
                 </div>
                 <!-- 右中 -->
@@ -405,7 +369,6 @@
     }
     .title_top {
       height: 64px;
-      //   border: 1px solid red;
       text-align: left;
       font-size: 16px;
       color: #ffffff;
@@ -423,7 +386,6 @@
     .content_left {
       width: 500px;
       height: 944px;
-      // border: 1px solid red;
       float: left;
       // 左上
       .content_left_top {
@@ -519,14 +481,12 @@
       height: 944px;
       width: 800px;
       margin: 0 20px;
-      //   border: 1px solid red;
       position: relative;
       overflow: hidden;
       float: left;
       .box_map_bg {
         height: 642px;
         width: 100%;
-        // border: 1px solid green;
         position: relative;
         overflow: hidden;
         .map_img_bg {
@@ -543,7 +503,6 @@
           height: 460px;
           width: 100%;
           margin-top: 138px;
-          //   border: 1px solid red;
           margin-bottom: 45px;
         }
       }
@@ -576,82 +535,17 @@
             font-family: PingFang;
             font-size: 12px;
             color: #ffffff;
-            .mao_bg {
-              font-family: PingFang;
-              font-size: 12px;
-              color: #ffffff;
-              width: 50%;
+            .block_left_content {
               height: 100%;
-              position: absolute;
-              right: 0;
-              top: 0;
-              background: url(../assets/img/mao_bg.png) no-repeat 0px 0px;
-              background-size: 100% 100%;
-              -moz-background-size: 100% 100%;
-              overflow: hidden;
-              .mao_box {
-                filter: blur(2px);
-                width: 500px;
-                height: 100%;
-                overflow: hidden;
-                position: absolute;
-                left: -250px;
-                .mao_box_hidden {
-                  opacity: 0;
-                }
-                .left_item {
-                  display: inline-block;
-                  padding: 0 5px;
-                  background: rgba(255, 255, 255, 0.12);
-                  border-radius: 4px;
-                  margin-right: 5px;
-                  margin-bottom: 12px;
-                }
+              width: 500px;
+              .left_item {
+                display: inline-block;
+                padding: 0 3px;
+                background: rgba(255, 255, 255, 0.12);
+                border-radius: 4px;
+                margin-right: 2px;
+                margin-bottom: 12px;
               }
-              .mao_box_true {
-                width: 500px;
-                height: 100%;
-                overflow: hidden;
-                position: absolute;
-                left: -250px;
-                .mao_box_red {
-                  opacity: 0.8;
-                  color: #c3112b;
-                  background: rgba(195, 17, 43, 0.24);
-                  //   border: 1px solid #c3112b;
-                }
-                .mao_box_red_hidden {
-                  opacity: 0;
-                }
-                .left_item {
-                  //   opacity: 0;
-                  display: inline-block;
-                  padding: 0 5px;
-                  //   background: rgba(255, 255, 255, 0.12);
-                  border-radius: 4px;
-                  margin-right: 5px;
-                  margin-bottom: 12px;
-                }
-              }
-            }
-            .block_left {
-              width: 250px;
-              overflow: hidden;
-              .block_left_content {
-                width: 500px;
-                .left_item {
-                  display: inline-block;
-                  padding: 0 5px;
-                  background: rgba(255, 255, 255, 0.12);
-                  border-radius: 4px;
-                  margin-right: 5px;
-                  margin-bottom: 12px;
-                }
-              }
-            }
-
-            .anim {
-              transition: all 0.5s;
             }
           }
           .mid {
@@ -663,13 +557,11 @@
             height: 200px;
             margin-left: 10px;
             margin-top: 17px;
-            // border: 1px solid red;
           }
           .right {
             float: right;
             width: 216px;
             height: 100%;
-            // border: 1px solid red;
           }
         }
       }
@@ -681,6 +573,7 @@
       float: left;
       // 右上
       .content_right_top {
+        overflow: hidden;
         .bom {
           .bom_item {
             background-color: #00357f;
@@ -699,6 +592,9 @@
             }
             .item_top {
               font-size: 14px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
               img {
                 margin: 0 10px;
               }
@@ -708,6 +604,22 @@
               opacity: 0.64;
               font-size: 12px;
             }
+          }
+          .list-item {
+            // display: inline-block;
+            margin-right: 10px;
+          }
+          .list-enter-active,
+          .list-leave-active {
+            transition: all 1s;
+          }
+          .list-enter,
+          .list-leave-to {
+            opacity: 0;
+            transform: translateX(-400px);
+          }
+          .flist-move {
+            transition: transform 1s;
           }
         }
       }
@@ -762,6 +674,7 @@ var echarts = require('echarts');
 import 'echarts/map/js/china.js';
 import '../../static/china.js';
 import '../../static/echarts-auto-tooltip.js';
+import animate from 'animate.css'
 // import { formatDate } from 'common/date.js';
 export default {
     name: 'home',
@@ -769,9 +682,9 @@ export default {
         return {
             // 情报总数
             total_intelligence_num: [0],
-            total_net_assets: [7, 6, 4, 2],
-            total_risk_attack: [1, 5],
-            total_threat_warning: [1, 9],
+            total_net_assets: [0],
+            total_risk_attack: [0],
+            total_threat_warning: [0],
             total_unit: {
                 total_intelligence_num_unit: '',
                 total_net_assets_unit: '',
@@ -789,19 +702,35 @@ export default {
             },
             newsData: [
                 {
-                    name: '俄罗斯黑客利用TeamViewer攻击各国驻欧洲大使馆',
+                    name: '供应链攻击ShadowHammer--使用华硕的两个数字签名证书签名',
                     time: '7小时前'
                 },
                 {
-                    name: 'NCSC发布最常被黑客入侵的密码列表',
+                    name: 'SandboxEscaper又发布4个Win10零日漏洞',
                     time: '7小时前'
                 },
                 {
-                    name: '新型勒索软件定制服务INPIVX在暗网兴起',
+                    name: 'VirusTotal上有签名的恶意软件其签名证书由Comodo CA签署的占比最大',
                     time: '7小时前'
                 },
                 {
-                    name: '攻击者利用Windows MSI文件运行恶意脚本',
+                    name: 'Mirai新变种利用了超过10个漏洞',
+                    time: '7小时前'
+                },
+                {
+                    name: 'Tor Brower面向Android发布首个稳定版本',
+                    time: '7小时前'
+                },
+                {
+                    name: 'Game Golf数百万用户信息泄露',
+                    time: '7小时前'
+                },
+                {
+                    name: '著名的密码破解攻击John the Ripper支持FPGA破解密码',
+                    time: '7小时前'
+                },
+                {
+                    name: '微软最新RDP漏洞利用POC程序在暗网销售',
                     time: '7小时前'
                 },
             ],
@@ -828,7 +757,7 @@ export default {
             check_alert_data: -999,
             threat_rank_data: [],
             threat_distribution_data: [],
-            map_data: []
+            map_data: {}
         }
     },
     props: {
@@ -852,16 +781,15 @@ export default {
         this.echarts_map();
         // 右下
         this.real_time_data();
-        this.realtime_alert();
-        // this.total_risk_attack_get();
+        this.news_time_data();
         this.total_intelligence_num_get();
+        this.total_risk_attack_get();
         // 威胁预警总数
         this.threat_warning_count();
+        // 互联网总数
+        this.internet_assets_count();
         // 首要预警
-        // this.main_warning();
-        this.alarm_type_f_echarts();
-        this.alarm_type_s_echarts();
-        this.alarm_type_t_echarts();
+        this.main_warning();
         // 检测最新告警
         this.check_alert();
         // 威胁排行
@@ -875,9 +803,12 @@ export default {
                 this.outfull();
             }
         }
+        setInterval(() => {
+            this.check_alert();
+        }, 3000)
     },
     methods: {
-            unit_common(num) {
+        unit_common(num) {
             var obj = {};
             if (num < 10000) {
                 obj.num = num + '';
@@ -893,10 +824,10 @@ export default {
             }
             return obj
         },
-           // 情报总数
+        // 情报总数
         total_intelligence_num_get() {
-            this.$axios.get('https://47.104.243.249/demonstration/intelligence-count ')
-                // this.$axios.get('/demonstration/intelligence-count ')
+            // this.$axios.get('https://47.105.196.251/demonstration/intelligence-count ')
+            this.$axios.get('/demonstration/intelligence-count ')
                 .then(response => {
                     var str = this.unit_common(response.data.data.total_intelligence).num;
                     this.total_unit.total_intelligence_num_unit = this.unit_common(response.data.data.total_intelligence).unit;
@@ -908,8 +839,8 @@ export default {
         },
         // 风险资产总数
         total_risk_attack_get() {
-            this.$axios.get('https://47.104.243.249/demonstration/risk-assets-count')
-            // this.$axios.get('/demonstration/risk-assets-count')
+            // this.$axios.get('https://47.105.196.251/demonstration/risk-assets-count')
+            this.$axios.get('/demonstration/risk-assets-count')
                 .then(response => {
                     var str = this.unit_common(response.data.data.risk_assets_count).num;
                     this.total_unit.total_risk_attack_unit = this.unit_common(response.data.data.risk_assets_count).unit;
@@ -919,11 +850,10 @@ export default {
                     console.log(error);
                 })
         },
-
         // 威胁预警总数
         threat_warning_count() {
-            // this.$axios.get('/demonstration/threat-warning-count')
-            this.$axios.get('https://47.104.243.249/demonstration/threat-warning-count')
+            this.$axios.get('/demonstration/threat-warning-count')
+                // this.$axios.get('https://47.105.196.251/demonstration/threat-warning-count')
                 .then(response => {
                     var str = this.unit_common(response.data.data.count).num;
                     this.total_unit.total_threat_warning_unit = this.unit_common(response.data.data.count).unit;
@@ -933,17 +863,39 @@ export default {
                     console.log(error);
                 })
         },
-// 实时情报动态
+        // 互联网总数
+        internet_assets_count() {
+            this.$axios.get('/demonstration/internet-assets-count')
+                // this.$axios.get('https://47.105.196.251/demonstration/internet-assets-count')
+                .then(response => {
+                    console.log(response);
+                    var str = this.unit_common(response.data.data).num;
+                    this.total_unit.total_net_assets_unit = this.unit_common(response.data.data).unit;
+                    this.total_net_assets = str.split("");
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
+        },
+        // 实时情报动态
         real_time_data() {
-            // setInterval(() => {
-            //     var item = this.real_time_threat.shift();
-            //     this.real_time_threat.push(item);
-            // }, 2000)
+            setInterval(() => {
+                var item = this.real_time_threat.shift();
+                this.real_time_threat.push(item);
+
+            }, 2000)
+        },
+        news_time_data() {
+            setInterval(() => {
+                var key = this.newsData.shift();
+                this.newsData.push(key);
+            }, 2000)
         },
         // 左上-威胁分布-饼图
         pie_left_echarts() {
-            this.$axios.get('https://47.104.243.249/demonstration/threat-level-distribution')
-                // this.$axios.get('/demonstration/threat-level-distribution')
+            // this.$axios.get('https://47.105.196.251/demonstration/threat-level-distribution')
+            this.$axios.get('/demonstration/threat-level-distribution')
                 .then(response => {
                     var pie_left_echarts_data = [
                         { name: '高', value: 14 },
@@ -1043,17 +995,14 @@ export default {
                 })
         },
         pie_right_echarts() {
-            // this.$axios.get('/demonstration/threat-category')
-            this.$axios.get('https://47.104.243.249/demonstration/threat-category')
+            this.$axios.get('/demonstration/threat-category')
+                // this.$axios.get('https:/47.105.196.251/demonstration/threat-category')
                 .then(response => {
-                    var legend_data = ['恶意地址', '高危漏洞', '暗网'];
-                    var series_data = [
-                        { name: '恶意地址', value: '2' },
-                        { name: '高危漏洞', value: '14' },
-                        { name: '暗网', value: '3' },
-                    ];
+                    console.log(response);
+                    var legend_data = [];
+                    var series_data = [];
                     response.data.data.forEach((item, index) => {
-                        if (index < 6) {
+                        if (index < 5) {
                             var obj = {};
                             legend_data.push(item.category);
                             obj.name = item.category;
@@ -1148,8 +1097,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    // data: this.list_time,
-                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
+                    data: this.list_time,
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1199,8 +1147,8 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    // data: this.list_ransomwareurl_count,
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                    data: this.list_botnet_count,
+
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1227,7 +1175,6 @@ export default {
             mychart.setOption(option, true);
         },
         alarm_type_s_echarts() {
-
             var mychart = echarts.init(document.getElementById("alarm_type_s"));
             var option = {
                 grid: {
@@ -1235,8 +1182,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    // data: this.list_time,
-                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
+                    data: this.list_time,
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1286,8 +1232,8 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    // data: this.list_botnet_count,
-                    data: [0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0],
+                    data: this.list_high_loophole_count,
+
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1321,8 +1267,7 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    // data: this.list_time,
-                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
+                    data: this.list_time,
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -1372,8 +1317,7 @@ export default {
                     showSymbol: false,
                     symbol: 'circle',
                     symbolSize: 2,
-                    // data: this.list_high_loophole_count,
-                    data: [0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    data: this.list_ransomwareurl_count,
                     areaStyle: {
                         normal: {
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
@@ -1403,8 +1347,10 @@ export default {
         // 折线图
         risk_trend_echarts() {
             this.$axios.get('/demonstration/threat-situation')
-                // this.$axios.get('https://47.104.243.249/demonstration/threat-situation')
+                // this.$axios.get('https://47.105.196.251/demonstration/threat-situation')
                 .then(response => {
+                    console.log(response);
+
                     var xAxis_data = [];
                     var series_data = [];
                     response.data.data.forEach(item => {
@@ -1468,9 +1414,12 @@ export default {
                         yAxis: {
                             type: 'value',
                             // interval: 5,
-                            minInterval: 5,
+                            minInterval: 1,
                             splitLine: {
-                                show: false
+                                show: true,
+                                lineStyle: {
+                                    color: '#224889'
+                                }
                             },
                             axisTick: {
                                 show: false
@@ -1491,7 +1440,7 @@ export default {
                         series: [{
                             name: '',
                             type: 'line',
-                            smooth: true,
+                            // smooth: true,
                             showSymbol: false,
                             symbol: 'circle',
                             symbolSize: 2,
@@ -1593,40 +1542,31 @@ export default {
         },
         // 中国地图
         china_eachrts(item) {
-            // if (item) {
-            //     function formatDate(value) {
-            //         let date = new Date(value);
-            //         let y = date.getFullYear();
-            //         let MM = date.getMonth() + 1;
-            //         MM = MM < 10 ? ('0' + MM) : MM;
-            //         let d = date.getDate();
-            //         d = d < 10 ? ('0' + d) : d;
-            //         let h = date.getHours();
-            //         h = h < 10 ? ('0' + h) : h;
-            //         let m = date.getMinutes();
-            //         m = m < 10 ? ('0' + m) : m;
-            //         let s = date.getSeconds();
-            //         s = s < 10 ? ('0' + s) : s;
-            //         return y + '/' + MM + '/' + d + ' ' + h + ':' + m + ':' + s;
-            //     }
-            //     var toolTipData = [
-            //         { name: "上海", type: item.type, ip: item.client_ip, category: item.category, time: formatDate(item.first_seen * 1000), position: item.position },
-            //     ]
-            // } else {
-            // var toolTipData = [];
-            // 101.230.212.114 ，恶意地址，首次出现时间为：2019年4月20日 ，归属为:赛可电子
-            var toolTipData = [
-                {
-                    name: "上海",
-                    type: 'IP',
-                    ip: '101.230.212.114',
-                    category: '恶意地址',
-                    time: '2019年4月20日',
-                    position: '赛可电子'
+            if (item) {
+                function formatDate(value) {
+                    let date = new Date(value);
+                    let y = date.getFullYear();
+                    let MM = date.getMonth() + 1;
+                    MM = MM < 10 ? ('0' + MM) : MM;
+                    let d = date.getDate();
+                    d = d < 10 ? ('0' + d) : d;
+                    let h = date.getHours();
+                    h = h < 10 ? ('0' + h) : h;
+                    let m = date.getMinutes();
+                    m = m < 10 ? ('0' + m) : m;
+                    let s = date.getSeconds();
+                    s = s < 10 ? ('0' + s) : s;
+                    return y + '/' + MM + '/' + d + ' ' + h + ':' + m + ':' + s;
                 }
-            ];
-            console.log(1111);
-            // }
+                console.log(item);
+                var toolTipData = [
+                    { name: "上海", type: item.type, ip: item.client_ip, category: item.category, time: formatDate(item.first_seen * 1000), position: item.position },
+                ]
+                console.log(toolTipData);
+
+            } else {
+                var toolTipData = [];
+            }
             var myChart = echarts.init(document.getElementById("china_map"));
             var mapName = 'china';
             var data = [
@@ -1791,7 +1731,6 @@ export default {
                 },
                 ]
             };
-
             myChart.setOption(option);
             var dataindex = 0;
             setInterval(function () {
@@ -1801,19 +1740,6 @@ export default {
                     dataIndex: 0 // 显示第几个数据
                 });
             }, 1000)
-            // var setindexfun = function () {
-            //     myChart.dispatchAction({
-            //         type: 'showTip',
-            //         // 系列的 index，在 tooltip 的 trigger 为 axis 的时候可选。
-            //         seriesIndex: 0,
-            //         dataIndex: dataindex,
-            //     })
-            //     dataindex++;
-            //     if (dataindex > toolTipData.length - 1) {
-            //         dataindex = 0;
-            //     }
-            // }
-            // setindexfun();
         },
         // 中下
         info_relation_echarts() {
@@ -1967,7 +1893,11 @@ export default {
             });
             // var ba_data_item = high_list[0] + medium_list[0] + low_list[0]
             this.threat_distribution_data.forEach(item => {
-                ba_data.push(this.threat_distribution_data[0].sort);
+                if (this.threat_distribution_data[0].sort < 20) {
+                    ba_data.push(20);
+                } else {
+                    ba_data.push(this.threat_distribution_data[0].sort);
+                }
             });
             var mychart = echarts.init(document.getElementById("threat"));
             var option = {
@@ -2143,50 +2073,25 @@ export default {
                 }
             }
         },
-        realtime_alert() {
-            // this.$axios.get('https://47.104.243.249/demonstration/realtime-alert')
-            this.$axios.get('/demonstration/realtime-alert')
-                .then(response => {
-                    // console.log(response.data.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        },
         // 首要预警
         main_warning() {
-            console.log(44444);
-            // this.$axios.get('https://47.104.243.249/demonstration/main-warning')
+            // this.$axios.get('https://47.105.196.251/demonstration/main-warning')
             this.$axios.get('/demonstration/main-warning')
                 .then(response => {
-                    console.log(12312312);
-                    console.log(response);
                     this.list_time = [];
                     this.list_botnet_count = [];
                     this.list_high_loophole_count = [];
                     this.list_ransomwareurl_count = [];
                     this.main_warning_data = response.data.data
-                    this.main_warning_data.list.forEach((item) => {
-                        this.list_time.push(item.statistics_time);
-                        if (item.darknet_count == '' || item.darknet_count == null) {
-                            this.list_botnet_count.push('0');
-                        } else {
-                            this.list_botnet_count.push(item.darknet_count);
-                        }
-                        if (item.high_loophole_count == '' || item.high_loophole_count == null) {
-                            this.list_high_loophole_count.push('0');
-                        } else {
-                            this.list_high_loophole_count.push(item.high_loophole_count);
-                        }
-                        if (item.high_gegree_count == '' || item.high_gegree_count == null) {
-                            this.list_ransomwareurl_count.push('0');
-                        } else {
-                            this.list_ransomwareurl_count.push(item.high_gegree_count);
-                        }
-                    })
-                    // this.alarm_type_f_echarts();
-                    // this.alarm_type_s_echarts();
-                    // this.alarm_type_t_echarts();
+                    for (var key in this.main_warning_data.list) {
+                        this.list_time.push(key);
+                        this.list_botnet_count.push(this.main_warning_data.list[key].asset_alert_count);
+                        this.list_high_loophole_count.push(this.main_warning_data.list[key].loophole_count);
+                        this.list_ransomwareurl_count.push(this.main_warning_data.list[key].darknet_count);
+                    }
+                    this.alarm_type_f_echarts();
+                    this.alarm_type_s_echarts();
+                    this.alarm_type_t_echarts();
                 })
                 .catch(error => {
                     console.log(error);
@@ -2194,14 +2099,15 @@ export default {
         },
         // 检测最新告警
         check_alert() {
-            // this.$axios.get('https://47.104.243.249/demonstration/check-alert')
+            // this.$axios.get('https://47.105.196.251/demonstration/check-alert')
             this.$axios.get('/demonstration/check-alert')
                 .then(response => {
                     if (response.data.data > this.check_alert_data) {
                         this.check_alert_data = response.data.data;
-                        // this.$axios.get('https://47.104.243.249/demonstration/realtime-intelligence')
+                        // this.$axios.get('https://47.105.196.251/demonstration/realtime-intelligence')
                         this.$axios.get('/demonstration/realtime-intelligence')
                             .then(response => {
+                                console.log(response.data.data);
                                 this.realtime_intelligence_data = response.data.data;
                                 this.realtime_intelligence_data.forEach((item, index) => {
                                     var obj = {
@@ -2211,23 +2117,17 @@ export default {
                                     if (typeof item == 'string') {
                                         obj.name = item;
                                         obj.threat = false;
+
                                     }
                                     if (typeof item == 'object') {
                                         obj.name = item.client_ip;
                                         obj.threat = true;
                                         item.index = index - 10;
-                                        this.map_data.push(item);
+                                        this.map_data = item;
+                                        this.china_eachrts(this.map_data);
                                     }
                                     this.real_time_threat.push(obj);
                                 })
-                                if (this.map_data.length != 0) {
-                                    // console.log(this.map_data);
-                                    this.map_data.forEach(item => {
-                                        // setTimeout(() => {
-                                        //     this.china_eachrts(item);
-                                        // }, item.index * 1000)
-                                    })
-                                }
                             })
                             .catch(error => {
                                 console.log(error);
@@ -2240,7 +2140,7 @@ export default {
         },
         // 威胁排行
         threat_rank() {
-            // this.$axios.get('https://47.104.243.249/demonstration/threat-rank')
+            // this.$axios.get('https://47.105.196.251/demonstration/threat-rank')
             this.$axios.get('/demonstration/threat-rank')
                 .then(response => {
                     this.tableData = [];
@@ -2248,7 +2148,7 @@ export default {
                     this.threat_rank_data.forEach((item, index) => {
                         var obj = {};
                         if (index < 4) {
-                            obj.ip = item.client_ip;
+                            obj.ip = item.asset_type;
                             obj.src = item.company;
                             obj.num = item.count;
                             obj.type = item.device_type;
@@ -2262,8 +2162,8 @@ export default {
         },
         // 威胁分布
         threat_distribution() {
-            this.$axios.get('https://47.104.243.249/demonstration/threat-distribution')
-                // this.$axios.get('/demonstration/threat-distribution')
+            // this.$axios.get('https://47.105.196.251/demonstration/threat-distribution')
+            this.$axios.get('/demonstration/threat-distribution')
                 .then(response => {
                     this.threat_distribution_data = response.data.data;
                     this.threat_echarts();
@@ -2272,7 +2172,6 @@ export default {
                     console.log(error);
                 })
         },
-
         rowClass: function (row, index) {
             if (row.rowIndex % 2 == 0) {
 
@@ -2280,7 +2179,15 @@ export default {
                 return ' background-color: rgba(34, 72, 137, 0.56)';
             }
         },
-    }
+
+
+        add: function () {
+            var item = this.newsData.shift();
+            this.newsData.push(item);
+        },
+
+
+    },
 }
 </script>
 

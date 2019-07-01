@@ -186,18 +186,25 @@
                         <span>全球威胁动态</span>
                     </div>
                     <div class="bom" style="height: 218px;overflow: hidden;">
-                        <transition-group name="list" tag="p" mode="out-in">
-                            <div class="bom_item list-item" v-for="item in newsData" v-bind:key="item.name">
-                                <img class="bar_left" src="../assets/img/bar_left.png" alt="">
-                                <p class="item_top">
-                                    <img src="../assets/img/li_title.png" alt="">
-                                    <span>{{item.name}}</span>
-                                </p>
-                                <p class="item_bom">
-                                    <span>{{item.time}}</span>
-                                </p>
+                        <div class="swiper_box" ref="goodSwiper">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide " v-for="(item,index) in newsData" v-bind:key="item.name">
+                                        <div class="bom_item list-item">
+                                            <img class="bar_left" src="../assets/img/bar_left.png" alt="">
+                                            <p class="item_top">
+                                                <img src="../assets/img/li_title.png" alt="">
+                                                <span>{{item.name}}</span>
+                                            </p>
+                                            <p class="item_bom">
+                                                <span>{{item.time}}</span>
+                                                <!-- <span>{{index}}</span> -->
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </transition-group>
+                        </div>
                     </div>
                 </div>
                 <!-- 右中 -->
@@ -538,6 +545,7 @@
             .block_left_content {
               height: 100%;
               width: 500px;
+
               .left_item {
                 display: inline-block;
                 padding: 0 3px;
@@ -545,6 +553,11 @@
                 border-radius: 4px;
                 margin-right: 2px;
                 margin-bottom: 12px;
+              }
+              .mao_box_red {
+                color: red;
+                border: 1px solid red;
+                background: transparent;
               }
             }
           }
@@ -575,51 +588,46 @@
       .content_right_top {
         overflow: hidden;
         .bom {
-          .bom_item {
-            background-color: #00357f;
-            border-radius: 4px;
-            height: 52px;
-            margin: 2px 0;
-            padding: 10px 0;
-            position: relative;
-            p {
-              text-align: left;
-            }
-            .bar_left {
-              position: absolute;
-              left: 0;
-              top: 0;
-            }
-            .item_top {
-              font-size: 14px;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              img {
-                margin: 0 10px;
+          .swiper_box {
+            width: 100%;
+            height: 100%;
+            // border: 1px solid red;
+            .swiper-container {
+              width: 100%;
+              height: 100%;
+              .swiper-slide {
+                .bom_item {
+                  background-color: #00357f;
+                  border-radius: 4px;
+                  height: 52px;
+                  margin: 2px 0;
+                  padding: 10px 0;
+                  position: relative;
+                  p {
+                    text-align: left;
+                  }
+                  .bar_left {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                  }
+                  .item_top {
+                    font-size: 14px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    img {
+                      margin: 0 10px;
+                    }
+                  }
+                  .item_bom {
+                    padding-left: 36px;
+                    opacity: 0.64;
+                    font-size: 12px;
+                  }
+                }
               }
             }
-            .item_bom {
-              padding-left: 36px;
-              opacity: 0.64;
-              font-size: 12px;
-            }
-          }
-          .list-item {
-            // display: inline-block;
-            margin-right: 10px;
-          }
-          .list-enter-active,
-          .list-leave-active {
-            transition: all 1s;
-          }
-          .list-enter,
-          .list-leave-to {
-            opacity: 0;
-            transform: translateX(-400px);
-          }
-          .flist-move {
-            transition: transform 1s;
           }
         }
       }
@@ -674,7 +682,8 @@ var echarts = require('echarts');
 import 'echarts/map/js/china.js';
 import '../../static/china.js';
 import '../../static/echarts-auto-tooltip.js';
-import animate from 'animate.css'
+import animate from 'animate.css';
+import Swiper from 'swiper';
 // import { formatDate } from 'common/date.js';
 export default {
     name: 'home',
@@ -700,40 +709,7 @@ export default {
                 sNum: 2332,
                 tNum: 12213,
             },
-            newsData: [
-                {
-                    name: '供应链攻击ShadowHammer--使用华硕的两个数字签名证书签名',
-                    time: '7小时前'
-                },
-                {
-                    name: 'SandboxEscaper又发布4个Win10零日漏洞',
-                    time: '7小时前'
-                },
-                {
-                    name: 'VirusTotal上有签名的恶意软件其签名证书由Comodo CA签署的占比最大',
-                    time: '7小时前'
-                },
-                {
-                    name: 'Mirai新变种利用了超过10个漏洞',
-                    time: '7小时前'
-                },
-                {
-                    name: 'Tor Brower面向Android发布首个稳定版本',
-                    time: '7小时前'
-                },
-                {
-                    name: 'Game Golf数百万用户信息泄露',
-                    time: '7小时前'
-                },
-                {
-                    name: '著名的密码破解攻击John the Ripper支持FPGA破解密码',
-                    time: '7小时前'
-                },
-                {
-                    name: '微软最新RDP漏洞利用POC程序在暗网销售',
-                    time: '7小时前'
-                },
-            ],
+            newsData: [],
             tableData: [],
             n: 0,
             fun_text: '全屏',
@@ -757,7 +733,11 @@ export default {
             check_alert_data: -999,
             threat_rank_data: [],
             threat_distribution_data: [],
-            map_data: {}
+            map_data: {},
+            count: 0,
+            name_demo: 0,
+            swiper_count: 0,
+            conut_num: 0,
         }
     },
     props: {
@@ -770,7 +750,12 @@ export default {
             default: 9000
         },
     },
+    created() {
+
+    },
     mounted() {
+        // 检测最新告警
+        this.check_alert();
         // 左上
         this.pie_left_echarts();
         this.pie_right_echarts();
@@ -778,25 +763,22 @@ export default {
         this.risk_trend_echarts();
         // 中上
         this.china_eachrts();
-        this.echarts_map();
         // 右下
-        this.real_time_data();
-        this.news_time_data();
         this.total_intelligence_num_get();
         this.total_risk_attack_get();
         // 威胁预警总数
         this.threat_warning_count();
         // 互联网总数
         this.internet_assets_count();
+        // 安全动态
+        this.threat_dynamics();
         // 首要预警
         this.main_warning();
-        // 检测最新告警
-        this.check_alert();
         // 威胁排行
         this.threat_rank();
-        this.info_relation_echarts();
         // 威胁分布
         this.threat_distribution();
+        this.threat_dynamics();
         window.onresize = () => {
             // 全屏下监控是否按键了ESC
             if (!this.checkFull()) {
@@ -805,7 +787,12 @@ export default {
         }
         setInterval(() => {
             this.check_alert();
-        }, 3000)
+        }, 5000)
+    },
+    watch: {
+        newsData() {
+            // console.log(this.newsData);
+        }
     },
     methods: {
         unit_common(num) {
@@ -832,6 +819,9 @@ export default {
                     var str = this.unit_common(response.data.data.total_intelligence).num;
                     this.total_unit.total_intelligence_num_unit = this.unit_common(response.data.data.total_intelligence).unit;
                     this.total_intelligence_num = str.split("");
+                    setTimeout(() => {
+                        this.total_intelligence_num_get();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -845,6 +835,9 @@ export default {
                     var str = this.unit_common(response.data.data.risk_assets_count).num;
                     this.total_unit.total_risk_attack_unit = this.unit_common(response.data.data.risk_assets_count).unit;
                     this.total_risk_attack = str.split("");
+                    setTimeout(() => {
+                        this.total_risk_attack_get();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -858,6 +851,9 @@ export default {
                     var str = this.unit_common(response.data.data.count).num;
                     this.total_unit.total_threat_warning_unit = this.unit_common(response.data.data.count).unit;
                     this.total_threat_warning = str.split("");
+                    setTimeout(() => {
+                        this.threat_warning_count();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -868,29 +864,95 @@ export default {
             this.$axios.get('/demonstration/internet-assets-count')
                 // this.$axios.get('https://47.105.196.251/demonstration/internet-assets-count')
                 .then(response => {
-                    console.log(response);
                     var str = this.unit_common(response.data.data).num;
                     this.total_unit.total_net_assets_unit = this.unit_common(response.data.data).unit;
                     this.total_net_assets = str.split("");
+                    setTimeout(() => {
+                        this.internet_assets_count();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
                 })
 
         },
+        // 安全动态
+        threat_dynamics() {
+            this.$axios.get('/demonstration/threat-dynamics')
+                // this.$axios.get('https://47.105.196.251/demonstration/threat-dynamics')
+                .then(response => {
+                    console.log(this.count++);
+                    this.newsData = [];
+                    response.data.data.forEach(item => {
+                        var obj_new = {};
+                        obj_new.name = item.title;
+                        obj_new.time = item.updated_at;
+                        this.newsData.push(obj_new);
+                    })
+                    var settime_news = setTimeout(() => {
+                        this.threat_dynamics();
+                    }, 100000)
+                    this.initSwiper();
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        },
+        initSwiper() {
+            this.$nextTick(() => {
+                var _this = this;
+                if (!_this.myswiper) {
+                    console.log('swiper' + this.swiper_count++);
+                    _this.myswiper = new Swiper(".swiper-container", {
+                        autoplay: {
+                            delay: 3000,
+                            stopOnLastSlide: false,
+                            disableOnInteraction: false,
+                        },
+                        //可选选项，自动滑动
+                        direction: 'vertical',
+                        loop: true,
+                        observer: true,
+                        observeParents: true,
+                        speed: 300,
+                        spaceBetween: 0,
+                        slidesPerView: 4,
+                        slidesPerGroup: 1,
+                        on: {
+                            slideChange: function () {
+                            },
+                        }
+                    });
+                    console.log(this);
+                    console.log(this.myswiper);
+                    console.log(this.myswiper.loopedSlides);
+                    // this.myswiper.virtual.update();
+                    // this.myswiper.updateSize();
+                    // this.myswiper.updateSlides();
+                    // this.myswiper.updateSlidesClasses();
+                    console.log(this.newsData);
+                    this.myswiper.update();
+                    // this.myswiper.removeSlide(0);
+                    // this.myswiper.destroy();
+                    // this.myswiper.mountInstance();
+                    // this.$refs.goodSwiper.swiper.destroy()   //先销毁
+                    // this.$refs.goodSwiper.mountInstance()   //后在加载
+                    // _this.myswiper.startAutoplay();
+                    // this.myswiper.startAutoplay();
+                    // this.myswiper.reLoop();
+                } else {
+                    // this.swiper.startAutoplay();
+                    // this.swiper.reLoop();
+                }
+            })
+        },
         // 实时情报动态
         real_time_data() {
-            setInterval(() => {
+            this.setinter = setInterval(() => {
+                this.conut_num++;
                 var item = this.real_time_threat.shift();
                 this.real_time_threat.push(item);
-
-            }, 2000)
-        },
-        news_time_data() {
-            setInterval(() => {
-                var key = this.newsData.shift();
-                this.newsData.push(key);
-            }, 2000)
+            }, 5000)
         },
         // 左上-威胁分布-饼图
         pie_left_echarts() {
@@ -898,9 +960,9 @@ export default {
             this.$axios.get('/demonstration/threat-level-distribution')
                 .then(response => {
                     var pie_left_echarts_data = [
-                        { name: '高', value: 14 },
-                        { name: '中', value: 3 },
-                        { name: '低', value: 2 }
+                        { name: '高', value: 0 },
+                        { name: '中', value: 0 },
+                        { name: '低', value: 0 }
                     ];
                     response.data.data.forEach(item => {
                         if (item.degree == '高') {
@@ -915,9 +977,7 @@ export default {
                             pie_left_echarts_data[2].name = item.degree
                             pie_left_echarts_data[2].value = item.count
                         }
-
                     })
-
                     var mychart = echarts.init(document.getElementById("pie_left"));
                     var option = {
                         title: {
@@ -989,6 +1049,9 @@ export default {
                     };
                     mychart.setOption(option, true);
                     tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+                    // setTimeout(() => {
+                    //     this.pie_left_echarts();
+                    // }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -1082,6 +1145,9 @@ export default {
                     };
                     mychart.setOption(option, true);
                     tools.loopShowTooltip(mychart, option, { loopSeries: true }); // 使用本插件
+                    // setTimeout(() => {
+                    //     this.pie_right_echarts();
+                    // }, 10000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -1350,7 +1416,6 @@ export default {
                 // this.$axios.get('https://47.105.196.251/demonstration/threat-situation')
                 .then(response => {
                     console.log(response);
-
                     var xAxis_data = [];
                     var series_data = [];
                     response.data.data.forEach(item => {
@@ -1469,76 +1534,14 @@ export default {
                         }]
                     };
                     mychart.setOption(option, true);
+                    setTimeout(() => {
+                        this.risk_trend_echarts();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
                 })
 
-        },
-        // 中上
-        echarts_map() {
-            this.$axios.get('https://raw.githubusercontent.com/WingsleyLui/MapJSON/master/global_map2.json')
-                .then(response => {
-                    var mychart = echarts.init(document.getElementById("content_mid_map"));
-                    echarts.registerMap('globalmap', response.data);
-                    mychart.setOption({
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: function (item) {
-                                // console.log(item);
-                            },
-                            textStyle: {
-                                fontSize: 18
-                            }
-                        },
-                        grid: {
-                            left: 0,
-                            top: 0,
-                            right: 0,
-                            bottom: 0
-                        },
-                        series: [
-                            {
-                                name: 'Total amount of patients',
-                                type: 'map',
-                                mapType: 'globalmap',
-                                roam: false,
-                                zoom: 1.2,
-                                label: {
-                                    normal: {
-                                        show: false
-                                    },
-                                    emphasis: {
-                                        show: true
-                                    }
-                                },
-                                itemStyle: {
-                                    normal: {
-                                        label: {
-                                            show: true
-                                        },
-                                        borderWidth: .5, //区域边框宽度
-                                        borderColor: '#0A68E9', //区域边框颜色
-                                        areaColor: "#081F3D", //区域颜色
-                                    },
-                                    emphasis: {
-                                        label: {
-                                            show: true
-                                        }
-                                    }
-                                },
-                                data: [
-
-                                ],
-                                nameMap: {
-                                }
-                            },
-                        ],
-                    });
-                })
-                .catch(error => {
-                    console.log(error);
-                })
         },
         // 中国地图
         china_eachrts(item) {
@@ -1560,7 +1563,7 @@ export default {
                 }
                 console.log(item);
                 var toolTipData = [
-                    { name: "上海", type: item.type, ip: item.client_ip, category: item.category, time: formatDate(item.first_seen * 1000), position: item.position },
+                    { name: "上海", type: item.type, ip: item.client_ip, category: item.category, time: formatDate(item.first_seen * 1000), position: item.company },
                 ]
                 console.log(toolTipData);
 
@@ -1742,7 +1745,37 @@ export default {
             }, 1000)
         },
         // 中下
-        info_relation_echarts() {
+        info_relation_echarts(item) {
+            var datalist = [
+                {
+                    name: item.last_alerts.matched,
+                    symbolSize: 20,
+                    draggable: true,
+                    category: 1,
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#FF7327',
+                            borderWidth: 2,
+                            shadowBlur: 10,
+                            color: '#FF7327',
+                        }
+                    },
+                },
+            ];
+            var linklist = [];
+            if (item.extension.length != 0) {
+                item.extension.forEach(element => {
+                    var obj = {}, linkobj = {}
+                    obj.name = element;
+                    obj.symbolSize = 10;
+                    datalist.push(obj);
+                    linkobj.source = item.last_alerts.matched;
+                    linkobj.target = element;
+                    linkobj.value = '';
+                    linklist.push(obj);
+                });
+            }
+
             var mychart = echarts.init(document.getElementById("info_relation"));
             var option = {
                 tooltip: {},
@@ -1781,49 +1814,7 @@ export default {
                                 formatter: "{c}"
                             }
                         },
-                        data: [
-                            {
-                                name: 'IP:101.230.212.114',
-                                symbolSize: 20,
-                                draggable: true,
-                                category: 1,
-                                itemStyle: {
-                                    normal: {
-                                        borderColor: '#FF7327',
-                                        borderWidth: 2,
-                                        shadowBlur: 10,
-                                        color: '#FF7327',
-                                    }
-                                },
-                            },
-                            {
-                                name: 'joa.chexiang.com',
-                                symbolSize: 10,
-                            },
-                            {
-                                name: 'grape.chexiang.com',
-                                symbolSize: 10,
-                            },
-
-
-                            {
-                                name: 'bao.chexiang.com',
-                                symbolSize: 10,
-                                category: 1,
-                            },
-
-                            {
-                                name: '保养管家.apk',
-                                symbolSize: 10,
-                                category: 0,
-                            },
-                            {
-                                name: 'abb298aa17628af2414804509fea4e4ff77ce52cc7d06835afbdcf2d4a770387',
-                                symbolSize: 10,
-                                category: 0,
-                            },
-
-                        ],
+                        data: datalist,
                         itemStyle: {
                             normal: {
                                 borderColor: '#DBA500',
@@ -1832,35 +1823,7 @@ export default {
                                 color: '#DBA500',
                             }
                         },
-                        links: [
-                            {
-                                source: 'IP:101.230.212.114',
-                                target: 'joa.chexiang.com',
-                                value: '',
-                            },
-
-                            {
-                                source: 'IP:101.230.212.114',
-                                target: 'grape.chexiang.com',
-                                value: '',
-                            },
-                            {
-                                source: 'IP:101.230.212.114',
-                                target: 'bao.chexiang.com',
-                                value: '',
-                            },
-                            {
-                                source: 'grape.chexiang.com',
-                                target: '保养管家.apk',
-                                value: '',
-                            },
-                            {
-                                source: 'grape.chexiang.com',
-                                target: 'abb298aa17628af2414804509fea4e4ff77ce52cc7d06835afbdcf2d4a770387',
-                                value: '',
-                            },
-
-                        ],
+                        links: linklist,
                         lineStyle: {
                             normal: {
                                 opacity: 0.31,
@@ -1870,9 +1833,9 @@ export default {
                             }
                         },
                         categories: [
-                            { name: '人' },
-                            { name: '物证' },
-                            { name: '不明物体' }
+                            { name: '1' },
+                            { name: '2' },
+                            { name: '3' }
                         ]
                     },
                 ]
@@ -2092,6 +2055,9 @@ export default {
                     this.alarm_type_f_echarts();
                     this.alarm_type_s_echarts();
                     this.alarm_type_t_echarts();
+                    setTimeout(() => {
+                        this.main_warning();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -2107,7 +2073,7 @@ export default {
                         // this.$axios.get('https://47.105.196.251/demonstration/realtime-intelligence')
                         this.$axios.get('/demonstration/realtime-intelligence')
                             .then(response => {
-                                console.log(response.data.data);
+                                this.real_time_threat = [];
                                 this.realtime_intelligence_data = response.data.data;
                                 this.realtime_intelligence_data.forEach((item, index) => {
                                     var obj = {
@@ -2117,17 +2083,20 @@ export default {
                                     if (typeof item == 'string') {
                                         obj.name = item;
                                         obj.threat = false;
-
                                     }
                                     if (typeof item == 'object') {
-                                        obj.name = item.client_ip;
+                                        obj.name = item.last_alerts.client_ip;
+                                        this.name_demo = item.last_alerts.client_ip;
                                         obj.threat = true;
                                         item.index = index - 10;
                                         this.map_data = item;
-                                        this.china_eachrts(this.map_data);
+                                        this.china_eachrts(this.map_data.last_alerts);
+                                        this.info_relation_echarts(this.map_data);
                                     }
                                     this.real_time_threat.push(obj);
                                 })
+                                clearInterval(this.setinter);
+                                this.real_time_data();
                             })
                             .catch(error => {
                                 console.log(error);
@@ -2155,6 +2124,9 @@ export default {
                             this.tableData.push(obj);
                         }
                     })
+                    setTimeout(() => {
+                        this.threat_rank();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -2167,6 +2139,9 @@ export default {
                 .then(response => {
                     this.threat_distribution_data = response.data.data;
                     this.threat_echarts();
+                    setTimeout(() => {
+                        this.threat_distribution();
+                    }, 100000);
                 })
                 .catch(error => {
                     console.log(error);
@@ -2174,19 +2149,10 @@ export default {
         },
         rowClass: function (row, index) {
             if (row.rowIndex % 2 == 0) {
-
             } else {
                 return ' background-color: rgba(34, 72, 137, 0.56)';
             }
         },
-
-
-        add: function () {
-            var item = this.newsData.shift();
-            this.newsData.push(item);
-        },
-
-
     },
 }
 </script>

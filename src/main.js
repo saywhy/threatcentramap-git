@@ -12,6 +12,7 @@ import "./assets/icon/iconfont.css";
 import "common/js/iconfont.js";
 import "common/family/font.css";
 import "common/family/pingfang.css";
+import "swiper/dist/css/swiper.min.css";
 Vue.config.productionTip = false;
 // axios.defaults.baseURL = "/api";
 // axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -24,5 +25,5 @@ new Vue({
   el: "#app",
   router,
   components: { App },
-  template: "<App/>",
+  template: "<App/>"
 });
